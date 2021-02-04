@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Тимур Кутовой](https://up.htmlacademy.ru/react/6/user/1255571).
-* Наставник: `Неизвестно`.
+* Наставник: [Jura Zubach](https://htmlacademy.ru/profile/id95078).
 
 ---
 
