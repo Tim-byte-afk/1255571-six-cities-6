@@ -2,7 +2,8 @@ import React from 'react';
 import CardScreen from '../card-screen/card-screen';
 import PropTypes from 'prop-types';
 
-const MainScreen = ({cardsData}) => {
+const MainScreen = (props) => {
+  const {cardsData = []} = props;
 
   return (
     <React.Fragment>

@@ -1,15 +1,11 @@
 import React from 'react';
 import MainScreen from '../main-screen/main-screen';
-import PropTypes from 'prop-types';
 
-const App = ({cardsData}) => {
+const App = (props) => {
   return (
-    <MainScreen cardsData={cardsData} />
+    <MainScreen {...props} />
   );
 };
 
-App.propTypes = {
-  cardsData: PropTypes.array,
-};
 
 export default App;
