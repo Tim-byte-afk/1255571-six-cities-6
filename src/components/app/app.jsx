@@ -2,15 +2,14 @@ import React from 'react';
 import MainScreen from '../main-screen/main-screen';
 import PropTypes from 'prop-types';
 
-const App = (props) => {
-  const {cardsCount} = props;
+const App = ({cardsData}) => {
   return (
-    <MainScreen cardsCount={cardsCount} />
+    <MainScreen cardsData={cardsData} />
   );
 };
 
 App.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
+  cardsData: PropTypes.array,
 };
 
 export default App;

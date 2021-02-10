@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-
-const Setting = {
-  CARDS_COUNT: 5
-};
+import MockData from './mock';
 
 ReactDOM.render(
-    <App cardsCount={Setting.CARDS_COUNT} />,
+    <App cardsData={MockData} />,
     document.querySelector(`#root`)
 );

@@ -2,13 +2,7 @@ import React from 'react';
 import CardScreen from '../card-screen/card-screen';
 import PropTypes from 'prop-types';
 
-const MainScreen = (props) => {
-  const {cardsCount} = props;
-  let cards = [];
-
-  for (let i = 0; i < cardsCount; i++) {
-    cards.push(i);
-  }
+const MainScreen = ({cardsData}) => {
 
   return (
     <React.Fragment>
@@ -95,7 +89,7 @@ const MainScreen = (props) => {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {cards.map((i) => <CardScreen key={i} />)}
+                  {cardsData.map((element) => <CardScreen cardData={element} key={element.id} />)}
                 </div>
               </section>
               <div className="cities__right-section">
@@ -110,7 +104,7 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
+  cardsData: PropTypes.array.isRequired,
 };
 
 export default MainScreen;
