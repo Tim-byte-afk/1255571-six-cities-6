@@ -3,7 +3,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import MainScreen from '../main-screen/main-screen';
 import Login from '../login-screen/login-screen';
 import Favorites from '../favorites-screen/favorites-screen';
-import Offer from '../room-screen/room-screen';
+import RoomContainer from '../room-screen/room-container';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 const App = (props) => {
@@ -20,7 +20,7 @@ const App = (props) => {
           <Login />
         </Route>
         <Route path="/offer/:id" exact >
-          <Offer />
+          <RoomContainer {...props} />
         </Route>
         <Route>
           <NotFoundScreen />

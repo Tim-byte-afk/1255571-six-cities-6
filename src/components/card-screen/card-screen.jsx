@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import {getStarsWidth} from '../../utils';
 
-const CardScreen = ({cardData}) => {
+const CardScreen = (props) => {
+  const {cardData, onMouseEnter, onMouseLeave} = props;
+
+  const handleMouseOn = () => {
+    onMouseEnter(cardData);
+  };
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseEnter={handleMouseOn} onMouseLeave={onMouseLeave}>
       {
         cardData.is_premium
           ?
@@ -12,12 +19,12 @@ const CardScreen = ({cardData}) => {
             <span>Premium</span>
           </div>
           :
-          <div></div>
+          ``
       }
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`/offer/${cardData.id}`}>
           <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -34,12 +41,14 @@ const CardScreen = ({cardData}) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}} ></span>
+            <span style={{width: `${getStarsWidth(cardData.rating)}%`}} ></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{cardData.title}</a>
+          <Link to={`/offer/${cardData.id}`}>
+            {cardData.title}
+          </Link>
         </h2>
         <p className="place-card__type">{cardData.type}</p>
       </div>
@@ -49,6 +58,8 @@ const CardScreen = ({cardData}) => {
 
 CardScreen.propTypes = {
   cardData: PropTypes.object.isRequired,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func
 };
 
 export default CardScreen;
