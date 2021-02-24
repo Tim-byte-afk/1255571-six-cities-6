@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 const Review = (props) => {
   const {reviewData} = props;
 
-  const date = new Date(reviewData.date);
+  const newDate = new Date(reviewData.date);
+  const date = newDate.toLocaleString(`default`, {month: `long`}) + ` ` + newDate.getFullYear();
 
   return (
     <React.Fragment>
@@ -28,7 +29,7 @@ const Review = (props) => {
           <p className="reviews__text">
             {reviewData.comment}
           </p>
-          <time className="reviews__time" dateTime="2019-04-24">{date.toLocaleString(`default`, {month: `long`}) + ` ` + date.getFullYear()}</time>
+          <time className="reviews__time" dateTime="2019-04-24">{date}</time>
         </div>
       </li>
     </React.Fragment>

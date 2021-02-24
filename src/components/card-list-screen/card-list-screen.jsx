@@ -4,14 +4,14 @@ import CardScreen from '../card-screen/card-screen';
 
 const CardListScreen = (props) => {
   const {cardsData = []} = props;
-  let [activeCard, setActiveCard] = useState({});
+  const [, setActiveCardId] = useState(null);
 
-  const handleMouseOn = (selectedCard) => {
-    setActiveCard(selectedCard);
+  const handleMouseOn = (cardId) => {
+    setActiveCardId(String(cardId));
   };
 
   const handleMouseOff = () => {
-    setActiveCard({});
+    setActiveCardId(null);
   };
 
   return (

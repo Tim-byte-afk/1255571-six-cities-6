@@ -6,20 +6,16 @@ import {getStarsWidth} from '../../utils';
 const CardScreen = (props) => {
   const {cardData, onMouseEnter, onMouseLeave} = props;
 
-  const handleMouseOn = () => {
-    onMouseEnter(cardData);
-  };
+  const handleMouseOn = (id) => () => onMouseEnter(id);
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={handleMouseOn} onMouseLeave={onMouseLeave}>
+    <article className="cities__place-card place-card" onMouseEnter={handleMouseOn(cardData.id)} onMouseLeave={onMouseLeave}>
       {
-        cardData.is_premium
-          ?
+        cardData.is_premium && (
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
-          :
-          ``
+        )
       }
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${cardData.id}`}>
