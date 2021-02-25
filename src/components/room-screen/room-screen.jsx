@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../header/header';
 import ReviewsList from './room-reviews-list';
+import Map from '../map-screen/map-screen';
 import Other from './room-other';
 import {getStarsWidth} from '../../utils';
 import PropTypes from 'prop-types';
@@ -17,28 +18,24 @@ const Room = (props) => {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                cardData.images.length > 0
-                  ?
+                cardData.images.length > 0 && (
                   cardData.images.map((element, index) => (
                     <div className="property__image-wrapper" key={index}>
                       <img className="property__image" src={element} alt="Photo studio" />
                     </div>
                   ))
-                  :
-                  ``
+                )
               }
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
               {
-                cardData.is_premium
-                  ?
+                cardData.is_premium && (
                   <div className="property__mark">
                     <span>Premium</span>
                   </div>
-                  :
-                  ``
+                )
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
@@ -104,7 +101,9 @@ const Room = (props) => {
               <ReviewsList reviewsData={reviewsData} />
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
