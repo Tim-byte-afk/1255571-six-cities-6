@@ -102,7 +102,7 @@ const Room = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map />
+            <Map points={otherOffers} />
           </section>
         </section>
         <div className="container">
