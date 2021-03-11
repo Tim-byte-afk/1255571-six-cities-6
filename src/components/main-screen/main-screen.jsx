@@ -14,7 +14,6 @@ const MainScreen = (props) => {
   let cityCards = [];
   // city.name === String(activeCity)
   if (cardsData.length > 0) {
-    console.log(activeCity);
     cityCards = cardsData.filter((card) => card.city.name === String(activeCity));
   }
 
@@ -68,6 +67,7 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   cardsData: PropTypes.array,
+  activeCity: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
