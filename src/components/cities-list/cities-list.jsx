@@ -1,40 +1,40 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
+import {SITIES} from '../../constants';
 
-const CitiesList = () => {
+import cn from 'classnames';
+
+const CitiesList = (props) => {
+  const {activeCity, onChangeCity} = props;
+
+  const handleChangeCityClick = (evt) => {
+    evt.preventDefault();
+    onChangeCity(evt.target.innerText);
+  };
+
   return (
     <ul className="locations__list tabs__list">
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Paris</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Cologne</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Brussels</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item tabs__item--active">
-          <span>Amsterdam</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Hamburg</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Dusseldorf</span>
-        </a>
-      </li>
+      {Object.values(SITIES).map((city) => (
+        <li className="locations__item" key={city}>
+          <a className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} href="#" onClick={handleChangeCityClick}>
+            <span>{city}</span>
+          </a>
+        </li>
+      ))}
     </ul>
   );
 };
 
-export default CitiesList;
+const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+});
+
+export {CitiesList};
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);

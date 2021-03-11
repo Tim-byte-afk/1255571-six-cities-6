@@ -5,9 +5,18 @@ import CitiesList from '../cities-list/cities-list';
 import Sorting from '../sorting/sorting';
 import Map from '../map-screen/map-screen';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
 const MainScreen = (props) => {
-  const {cardsData = []} = props;
+  const {cardsData = [], activeCity} = props;
+
+  let cityCards = [];
+  // city.name === String(activeCity)
+  if (cardsData.length > 0) {
+    console.log(activeCity);
+    cityCards = cardsData.filter((card) => card.city.name === String(activeCity));
+  }
 
   return (
     <React.Fragment>
@@ -22,20 +31,20 @@ const MainScreen = (props) => {
           </div>
           <div className="cities">
             {
-              cardsData.length > 0
+              cityCards.length > 0
                 ?
                 <div className="cities__places-container container">
                   <section className="cities__places places">
                     <h2 className="visually-hidden">Places</h2>
-                    <b className="places__found">{cardsData.length} places to stay in Amsterdam</b>
+                    <b className="places__found">{cityCards.length} places to stay in {activeCity}</b>
                     <Sorting />
                     <CardListScreen
-                      cardsData={cardsData}
+                      cardsData={cityCards}
                     />
                   </section>
                   <div className="cities__right-section">
                     <section className="cities__map map">
-                      <Map points={cardsData} />
+                      <Map points={cityCards} />
                     </section>
                   </div>
                 </div>
@@ -61,4 +70,15 @@ MainScreen.propTypes = {
   cardsData: PropTypes.array,
 };
 
-export default MainScreen;
+const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+});
+
+export {MainScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
