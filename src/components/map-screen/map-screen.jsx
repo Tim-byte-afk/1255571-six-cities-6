@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({points = []}) => {
+const Map = (props) => {
+  const {points = [], activeCard} = props;
+
   const city = {latitude: 52.38333, longitude: 4.9, zoom: 12};
   const mapRef = useRef();
 
@@ -25,9 +27,15 @@ const Map = ({points = []}) => {
       })
       .addTo(mapRef.current);
 
+    return () => {
+      mapRef.current.remove();
+    };
+  }, []);
+
+  useEffect(() => {
     points.forEach((point) => {
       const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
+        iconUrl: String(point.id) === String(activeCard) ? `img/pin-active.svg` : `img/pin.svg`,
         iconSize: [30, 30]
       });
 
@@ -40,11 +48,7 @@ const Map = ({points = []}) => {
       .addTo(mapRef.current)
       .bindPopup(point.title);
     });
-
-    return () => {
-      mapRef.current.remove();
-    };
-  }, []);
+  }, [activeCard]);
 
   return (
     <div id="map" style={{height: `100%`}} ref={mapRef}></div>
@@ -52,7 +56,7 @@ const Map = ({points = []}) => {
 };
 
 Map.propTypes = {
-  // city: PropTypes.object.isRequired,
+  activeCard: PropTypes.string,
   points: PropTypes.array,
 };
 

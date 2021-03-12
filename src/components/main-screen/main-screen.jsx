@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import CardListScreen from '../card-list-screen/card-list-screen';
 import Header from '../header/header';
 import CitiesList from '../cities-list/cities-list';
@@ -8,13 +8,31 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
+import {SORTING_TYPE} from '../../constants.js';
+
 const MainScreen = (props) => {
-  const {cardsData = [], activeCity} = props;
+  const {cardsData = [], activeCity, activeSorting} = props;
+  const [activeCardId, setActiveCardId] = useState(null);
+
+  const handleMouseOn = (cardId) => {
+    setActiveCardId(String(cardId));
+  };
+
+  const handleMouseOff = () => {
+    setActiveCardId(null);
+  };
 
   let cityCards = [];
-  // city.name === String(activeCity)
   if (cardsData.length > 0) {
     cityCards = cardsData.filter((card) => card.city.name === String(activeCity));
+
+    if (activeSorting === SORTING_TYPE.PRICE_HIGH_LOW) {
+      cityCards.sort((a, b) => (b.price - a.price));
+    } else if (activeSorting === SORTING_TYPE.PRICE_LOW_HIGH) {
+      cityCards.sort((a, b) => (a.price - b.price));
+    } else if (activeSorting === SORTING_TYPE.RATED_FIRST) {
+      cityCards.sort((a, b) => (b.rating - a.rating));
+    }
   }
 
   return (
@@ -39,11 +57,13 @@ const MainScreen = (props) => {
                     <Sorting />
                     <CardListScreen
                       cardsData={cityCards}
+                      onMouseEnter={handleMouseOn}
+                      onMouseLeave={handleMouseOff}
                     />
                   </section>
                   <div className="cities__right-section">
                     <section className="cities__map map">
-                      <Map points={cityCards} />
+                      <Map points={cityCards} activeCard={activeCardId} />
                     </section>
                   </div>
                 </div>
@@ -67,11 +87,13 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   cardsData: PropTypes.array,
-  activeCity: PropTypes.string
+  activeCity: PropTypes.string.isRequired,
+  activeSorting: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
+  activeSorting: state.activeSorting
 });
 
 const mapDispatchToProps = (dispatch) => ({
