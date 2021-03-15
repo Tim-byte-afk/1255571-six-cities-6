@@ -4,13 +4,12 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Other = (props) => {
-  const {otherOffer, onMouseEnter, onMouseLeave} = props;
+  const {otherOffer} = props;
 
-  const handleMouseOn = (id) => () => onMouseEnter(id);
 
   return (
     <React.Fragment>
-      <article className="near-places__card place-card" onMouseEnter={handleMouseOn(otherOffer.id)} onMouseLeave={onMouseLeave}>
+      <article className="near-places__card place-card">
         <div className="near-places__image-wrapper place-card__image-wrapper">
           <Link to={`/offer/${otherOffer.id}`}>
             <img className="place-card__image" src={otherOffer.preview_image} width="260" height="200" alt="Place image" />
@@ -49,8 +48,6 @@ const Other = (props) => {
 
 Other.propTypes = {
   otherOffer: PropTypes.object.isRequired,
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func
 };
 
 export default Other;

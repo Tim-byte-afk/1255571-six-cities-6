@@ -7,7 +7,9 @@ export const ActionType = {
   LOAD_FAVORITE: `offers/loadFavorite`,
   LOAD_COMMENTS: `offers/loadComments`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  RESET_DATA: `offers/reset`
+  RESET_DATA: `offers/reset`,
+  REDIRECT_TO_ROUTE: `middlewares/redirectToRoute`,
+  SET_AUTH_INFO: `user/login`,
 };
 
 export const ActionCreator = {
@@ -45,5 +47,13 @@ export const ActionCreator = {
   }),
   reset: () => ({
     type: ActionType.RESET_DATA,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url
+  }),
+  setAuthInfo: (info) => ({
+    type: ActionType.SET_AUTH_INFO,
+    payload: info
   }),
 };

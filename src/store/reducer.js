@@ -14,6 +14,7 @@ const initialState = {
   isOfferLoaded: false,
   isOffersNearbyLoaded: false,
   isCommentsLoaded: false,
+  userInfo: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -68,6 +69,11 @@ const reducer = (state = initialState, action) => {
         isOfferLoaded: false,
         isOffersNearbyLoaded: false,
         isCommentsLoaded: false,
+      };
+    case ActionType.SET_AUTH_INFO:
+      return {
+        ...state,
+        userInfo: action.payload,
       };
   }
 

@@ -18,3 +18,18 @@ export const AUTHORIZATION_STATUS = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };
+
+export const AppRoute = {
+  LOGIN: `/login`,
+  MAIN: `/`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer/:id`,
+};
+
+export const ApiRoute = {
+  HOTELS: `/hotels`,
+  FAVORITE: `/favorite`,
+  COMMENTS: `/comments/`,
+  LOGIN: `/login`,
+  LOGOUT: `/logout`,
+};

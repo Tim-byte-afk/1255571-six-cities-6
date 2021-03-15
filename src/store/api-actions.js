@@ -21,19 +21,37 @@ export const fetchFavorite = () => (dispatch, _getState, api) => {
     .then(({data}) => dispatch(ActionCreator.loadFavorite(data)));
 };
 
+export const postFavorite = (id, status) => (dispatch, _getState, api) => {
+  api.post(`/favorite/${id}/${status}`)
+    .then(({data}) => dispatch(ActionCreator.loadFavorite(data)));
+};
+
 export const fetchComments = (id) => (dispatch, _getState, api) => {
   api.get(`/comments/${id}`)
+    .then(({data}) => dispatch(ActionCreator.loadComments(data)));
+};
+
+export const postComments = (id) => (dispatch, _getState, api) => {
+  api.post(`/comments/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadComments(data)));
 };
 
 
 export const checkAuth = () => (dispatch, _getState, api) => {
   api.get(`/login`)
+    .then((dataObj) => dispatch(ActionCreator.setAuthInfo(dataObj.data)))
     .then(() => dispatch(ActionCreator.requiredAuthorization(AUTHORIZATION_STATUS.AUTH)))
     .catch(() => {});
 };
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => {
-  api.get(`/login`, {email, password})
-    .then(() => dispatch(ActionCreator.requiredAuthorization(AUTHORIZATION_STATUS.AUTH)));
+export const login = ({email, password}) => (dispatch, _getState, api) => {
+  api.post(`/login`, {email, password})
+    .then((dataObj) => dispatch(ActionCreator.setAuthInfo(dataObj.data)))
+    .then(() => dispatch(ActionCreator.requiredAuthorization(AUTHORIZATION_STATUS.AUTH)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(`/`)));
+};
+
+export const logout = () => (dispatch, _getState, api) => {
+  api.get(`/logout`)
+    .then(() => dispatch(ActionCreator.requiredAuthorization(AUTHORIZATION_STATUS.NO_AUTH)));
 };

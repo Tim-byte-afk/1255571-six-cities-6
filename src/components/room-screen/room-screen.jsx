@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Header from '../header/header';
 import ReviewsList from './room-reviews-list';
 import Map from '../map-screen/map-screen';
@@ -8,15 +8,6 @@ import PropTypes from 'prop-types';
 
 const Room = (props) => {
   const {cardData, reviewsData, otherOffers} = props;
-  const [activeCardId, setActiveCardId] = useState(null);
-
-  const handleMouseOn = (cardId) => {
-    setActiveCardId(String(cardId));
-  };
-
-  const handleMouseOff = () => {
-    setActiveCardId(null);
-  };
 
   return (
     <div className="page">
@@ -115,7 +106,6 @@ const Room = (props) => {
           <section className="property__map map">
             <Map
               points={otherOffers}
-              activeCard={activeCardId}
             />
           </section>
         </section>
@@ -127,8 +117,6 @@ const Room = (props) => {
                 <Other
                   key={index}
                   otherOffer={element}
-                  onMouseEnter={handleMouseOn}
-                  onMouseLeave={handleMouseOff}
                 />
               ))}
             </div>
