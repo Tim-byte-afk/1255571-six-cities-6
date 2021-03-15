@@ -2,18 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {reducer} from './store/reducer';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
 import App from './components/app/app';
-import offers from './mocks/offers';
-import reviews from './mocks/reviews';
+import {createAPI} from './api';
+import {ActionCreator} from './store/action';
+import {AUTHORIZATION_STATUS} from './constants';
+import {checkAuth} from './store/api-actions';
 
-const store = createStore(reducer, composeWithDevTools());
+const api = createAPI(
+    () => store.dispatch(ActionCreator.requiredAuthorization(AUTHORIZATION_STATUS.NO_AUTH))
+);
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+);
+
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App cardsData={offers} reviewsData={reviews} />,
+      <App />,
     </Provider>,
     document.querySelector(`#root`)
 );

@@ -1,19 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Room from './room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 
-const RoomContainer = (props) => {
-  const {cardsData, reviewsData} = props;
+import {fetchOffer, fetchComments, fetchOffersNearby} from '../../store/api-actions.js';
+import LoadingScreen from '../loading-screen/loading-screen';
 
+const RoomContainer = (props) => {
+  const {offer, offersNearby, comments, isOfferLoaded, isOffersNearbyLoaded, isCommentsLoaded, onLoadData} = props;
   const {id} = useParams();
-  const offer = cardsData.find((item) => item.id === Number(id));
-  const otherOffers = cardsData.slice(0, 3);
+
+  useEffect(() => {
+    onLoadData(id);
+  }, [id]);
+
+  if (!isOfferLoaded || !isOffersNearbyLoaded || !isCommentsLoaded) {
+    return <LoadingScreen />;
+  }
 
   if (offer) {
     return (
-      <Room cardData={offer} reviewsData={reviewsData} otherOffers={otherOffers} />
+      <Room cardData={offer} reviewsData={comments} otherOffers={offersNearby} />
     );
   }
 
@@ -21,8 +30,32 @@ const RoomContainer = (props) => {
 };
 
 RoomContainer.propTypes = {
-  cardsData: PropTypes.array.isRequired,
-  reviewsData: PropTypes.array.isRequired,
+  offer: PropTypes.object.isRequired,
+  offersNearby: PropTypes.array.isRequired,
+  comments: PropTypes.array.isRequired,
+  isOfferLoaded: PropTypes.bool.isRequired,
+  isOffersNearbyLoaded: PropTypes.bool.isRequired,
+  isCommentsLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func,
 };
 
-export default RoomContainer;
+const mapStateToProps = (state) => ({
+  offer: state.offer,
+  offersNearby: state.offersNearby,
+  comments: state.comments,
+  isOfferLoaded: state.isOfferLoaded,
+  isOffersNearbyLoaded: state.isOffersNearbyLoaded,
+  isCommentsLoaded: state.isCommentsLoaded,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData(id) {
+    dispatch(fetchOffer(id));
+    dispatch(fetchComments(id));
+    dispatch(fetchOffersNearby(id));
+  }
+});
+
+export {RoomContainer};
+export default connect(mapStateToProps, mapDispatchToProps)(RoomContainer);
+

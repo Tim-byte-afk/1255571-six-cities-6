@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
-import {SORTING_TYPE} from '../../constants.js';
+import {sorting} from '../../helpers';
 
 const MainScreen = (props) => {
   const {cardsData = [], activeCity, activeSorting} = props;
@@ -25,14 +25,7 @@ const MainScreen = (props) => {
   let cityCards = [];
   if (cardsData.length > 0) {
     cityCards = cardsData.filter((card) => card.city.name === String(activeCity));
-
-    if (activeSorting === SORTING_TYPE.PRICE_HIGH_LOW) {
-      cityCards.sort((a, b) => (b.price - a.price));
-    } else if (activeSorting === SORTING_TYPE.PRICE_LOW_HIGH) {
-      cityCards.sort((a, b) => (a.price - b.price));
-    } else if (activeSorting === SORTING_TYPE.RATED_FIRST) {
-      cityCards.sort((a, b) => (b.rating - a.rating));
-    }
+    cityCards = sorting(cityCards, activeSorting);
   }
 
   return (
@@ -63,7 +56,7 @@ const MainScreen = (props) => {
                   </section>
                   <div className="cities__right-section">
                     <section className="cities__map map">
-                      <Map points={cityCards} activeCard={activeCardId} />
+                      <Map points={cityCards} activeCard={activeCardId} activeCity={activeCity} />
                     </section>
                   </div>
                 </div>

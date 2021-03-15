@@ -5,18 +5,19 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const Map = (props) => {
-  const {points = [], activeCard} = props;
+  const {points = [], activeCard, activeCity} = props;
 
-  const city = {latitude: 52.38333, longitude: 4.9, zoom: 12};
   const mapRef = useRef();
+
+  const cityLocation = points[0].city.location;
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: city.latitude,
-        lng: city.longitude
+        lat: cityLocation.latitude,
+        lng: cityLocation.longitude
       },
-      zoom: city.zoom,
+      zoom: cityLocation.zoom,
       zoomControl: false,
       marker: true
     });
@@ -30,7 +31,7 @@ const Map = (props) => {
     return () => {
       mapRef.current.remove();
     };
-  }, []);
+  }, [activeCity]);
 
   useEffect(() => {
     points.forEach((point) => {
@@ -48,7 +49,7 @@ const Map = (props) => {
       .addTo(mapRef.current)
       .bindPopup(point.title);
     });
-  }, [activeCard]);
+  }, [activeCard, activeCity]);
 
   return (
     <div id="map" style={{height: `100%`}} ref={mapRef}></div>
@@ -58,6 +59,7 @@ const Map = (props) => {
 Map.propTypes = {
   activeCard: PropTypes.string,
   points: PropTypes.array,
+  activeCity: PropTypes.string
 };
 
 export default Map;
