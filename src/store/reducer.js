@@ -15,6 +15,7 @@ const initialState = {
   isOffersNearbyLoaded: false,
   isCommentsLoaded: false,
   userInfo: {},
+  offerNotFound: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -74,6 +75,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         userInfo: action.payload,
+      };
+    case ActionType.OFFER_NOT_FOUND:
+      return {
+        ...state,
+        offerNotFound: action.payload
       };
   }
 

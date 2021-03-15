@@ -10,6 +10,7 @@ export const ActionType = {
   RESET_DATA: `offers/reset`,
   REDIRECT_TO_ROUTE: `middlewares/redirectToRoute`,
   SET_AUTH_INFO: `user/login`,
+  OFFER_NOT_FOUND: `offer/notFound`
 };
 
 export const ActionCreator = {
@@ -52,8 +53,12 @@ export const ActionCreator = {
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url
   }),
-  setAuthInfo: (info) => ({
+  setAuthInfo: (data) => ({
     type: ActionType.SET_AUTH_INFO,
-    payload: info
+    payload: data
+  }),
+  offerNotFound: (data) => ({
+    type: ActionType.OFFER_NOT_FOUND,
+    payload: data
   }),
 };

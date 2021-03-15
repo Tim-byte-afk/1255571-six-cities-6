@@ -100,6 +100,7 @@ const Room = (props) => {
               </div>
               <ReviewsList
                 reviewsData={reviewsData}
+                offerId={cardData.id}
               />
             </div>
           </div>

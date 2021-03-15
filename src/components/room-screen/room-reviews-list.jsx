@@ -1,10 +1,12 @@
 import React from 'react';
 import Form from '../root-form/root-form';
+import {connect} from 'react-redux';
 import Review from './room-review-screen';
 import PropTypes from 'prop-types';
+import {AUTHORIZATION_STATUS} from '../../constants';
 
 const ReviewsList = (props) => {
-  const {reviewsData = []} = props;
+  const {reviewsData = [], authorizationStatus, offerId} = props;
 
   return (
     <section className="property__reviews reviews">
@@ -17,13 +19,24 @@ const ReviewsList = (props) => {
           />
         ))}
       </ul>
-      <Form />
+      {
+        authorizationStatus === AUTHORIZATION_STATUS.AUTH && <Form offerId={offerId} />
+
+      }
     </section>
   );
 };
 
 ReviewsList.propTypes = {
   reviewsData: PropTypes.array.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  offerId: PropTypes.number.isRequired
 };
 
-export default ReviewsList;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+
+export {ReviewsList};
+export default connect(mapStateToProps)(ReviewsList);

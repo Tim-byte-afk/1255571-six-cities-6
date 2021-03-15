@@ -8,7 +8,8 @@ export const fetchOffersList = () => (dispatch, _getState, api) => {
 
 export const fetchOffer = (id) => (dispatch, _getState, api) => {
   api.get(`/hotels/${id}`)
-    .then(({data}) => dispatch(ActionCreator.loadOffer(data)));
+    .then(({data}) => dispatch(ActionCreator.loadOffer(data)))
+    .catch(() => dispatch(ActionCreator.offerNotFound(true)));
 };
 
 export const fetchOffersNearby = (id) => (dispatch, _getState, api) => {
@@ -31,8 +32,8 @@ export const fetchComments = (id) => (dispatch, _getState, api) => {
     .then(({data}) => dispatch(ActionCreator.loadComments(data)));
 };
 
-export const postComments = (id) => (dispatch, _getState, api) => {
-  api.post(`/comments/${id}`)
+export const postComments = (id, comment, rating) => (dispatch, _getState, api) => {
+  api.post(`/comments/${id}`, {comment, rating})
     .then(({data}) => dispatch(ActionCreator.loadComments(data)));
 };
 

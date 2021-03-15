@@ -63,7 +63,7 @@ const mapDispatchToProps = (dispatch) => ({
 App.propTypes = {
   offers: PropTypes.array,
   onLoadData: PropTypes.func,
-  isDataLoaded: PropTypes.bool
+  isDataLoaded: PropTypes.bool,
 };
 
 export {App};

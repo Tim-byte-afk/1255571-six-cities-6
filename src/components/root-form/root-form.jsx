@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {postComments} from '../../store/api-actions';
 
-const Form = () => {
+const Form = (props) => {
+  const {offerId, postData} = props;
   const [rating, setRating] = useState(4);
   const [review, setReview] = useState(``);
 
@@ -16,6 +20,7 @@ const Form = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    postData(offerId, review, rating);
     setRating(4);
     setReview(``);
   };
@@ -70,4 +75,21 @@ const Form = () => {
   );
 };
 
-export default Form;
+Form.propTypes = {
+  offerId: PropTypes.number.isRequired,
+  postData: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = () => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postData(id, comment, rating) {
+    dispatch(postComments(id, comment, rating));
+  }
+});
+
+export {Form};
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
+
