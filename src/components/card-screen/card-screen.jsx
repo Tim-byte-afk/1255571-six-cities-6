@@ -1,12 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {getStarsWidth} from '../../utils';
+import {useHistory} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {postFavorite} from '../../store/api-actions.js';
+import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
+
+import cn from 'classnames';
 
 const CardScreen = (props) => {
-  const {cardData, onMouseEnter, onMouseLeave} = props;
+
+  const {cardData, onMouseEnter, onMouseLeave, onButtonClick, authorizationStatus} = props;
+  const [isFavorite, setIsFavorite] = useState(cardData.is_favorite);
+  const history = useHistory();
 
   const handleMouseOn = (id) => () => onMouseEnter(id);
+
+  const handleFavoriteClick = () => {
+    if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+      history.push(AppRoute.LOGIN);
+    } else {
+      onButtonClick(cardData.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
+      setIsFavorite(!isFavorite);
+    }
+  };
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={handleMouseOn(cardData.id)} onMouseLeave={onMouseLeave}>
@@ -28,7 +46,7 @@ const CardScreen = (props) => {
             <b className="place-card__price-value">&euro;{cardData.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={cn(`button place-card__bookmark-button`, {'place-card__bookmark-button--active': isFavorite})} type="button" onClick={handleFavoriteClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -55,7 +73,20 @@ const CardScreen = (props) => {
 CardScreen.propTypes = {
   cardData: PropTypes.object.isRequired,
   onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func
+  onMouseLeave: PropTypes.func,
+  authorizationStatus: PropTypes.string,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
-export default CardScreen;
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onButtonClick(id, status) {
+    dispatch(postFavorite(id, status));
+  }
+});
+
+export {CardScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(CardScreen);

@@ -55,9 +55,9 @@ Header.propTypes = {
   onLogoutClick: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  userInfo: state.userInfo,
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  userInfo: USER.userInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({

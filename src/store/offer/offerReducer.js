@@ -1,35 +1,19 @@
-import {SITIES, SORTING_TYPE, AUTHORIZATION_STATUS} from '../constants';
-import {ActionType} from './action';
+import {ActionType} from '../action';
 
 const initialState = {
-  activeCity: SITIES.PARIS,
   offers: [],
   offer: {},
   offersNearby: [],
-  favorite: [],
   comments: [],
-  activeSorting: SORTING_TYPE.POPULAR,
-  authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
   isDataLoaded: false,
   isOfferLoaded: false,
   isOffersNearbyLoaded: false,
   isCommentsLoaded: false,
-  userInfo: {},
   offerNotFound: false
 };
 
-const reducer = (state = initialState, action) => {
+const offerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CITY:
-      return {
-        ...state,
-        activeCity: action.payload
-      };
-    case ActionType.CHANGE_SORT_TYPE:
-      return {
-        ...state,
-        activeSorting: action.payload
-      };
     case ActionType.LOAD_OFFERS:
       return {
         ...state,
@@ -48,21 +32,11 @@ const reducer = (state = initialState, action) => {
         offersNearby: action.payload,
         isOffersNearbyLoaded: true
       };
-    case ActionType.LOAD_FAVORITE:
-      return {
-        ...state,
-        favorite: action.payload,
-      };
     case ActionType.LOAD_COMMENTS:
       return {
         ...state,
         comments: action.payload,
         isCommentsLoaded: true
-      };
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload
       };
     case ActionType.RESET_DATA:
       return {
@@ -70,11 +44,6 @@ const reducer = (state = initialState, action) => {
         isOfferLoaded: false,
         isOffersNearbyLoaded: false,
         isCommentsLoaded: false,
-      };
-    case ActionType.SET_AUTH_INFO:
-      return {
-        ...state,
-        userInfo: action.payload,
       };
     case ActionType.OFFER_NOT_FOUND:
       return {
@@ -87,4 +56,4 @@ const reducer = (state = initialState, action) => {
 };
 
 
-export {reducer};
+export {offerReducer};

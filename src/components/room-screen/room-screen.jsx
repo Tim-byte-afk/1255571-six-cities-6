@@ -1,13 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../header/header';
 import ReviewsList from './room-reviews-list';
 import Map from '../map-screen/map-screen';
 import Other from './room-other';
 import {getStarsWidth} from '../../utils';
+import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {postFavorite} from '../../store/api-actions.js';
+import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
+
+import cn from 'classnames';
 
 const Room = (props) => {
-  const {cardData, reviewsData, otherOffers} = props;
+  const {cardData, reviewsData, otherOffers, authorizationStatus, onButtonClick} = props;
+  const [isFavorite, setIsFavorite] = useState(cardData.is_favorite);
+  const history = useHistory();
+
+  const handleFavoriteClick = () => {
+    if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+      history.push(AppRoute.LOGIN);
+    } else {
+      onButtonClick(cardData.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
+      setIsFavorite(!isFavorite);
+    }
+  };
 
   return (
     <div className="page">
@@ -19,8 +36,8 @@ const Room = (props) => {
             <div className="property__gallery">
               {
                 cardData.images.length > 0 && (
-                  cardData.images.map((element, index) => (
-                    <div className="property__image-wrapper" key={index}>
+                  cardData.images.slice(0, 6).map((element, index) => (
+                    <div className="property__image-wrapper" key={index + Date.now()}>
                       <img className="property__image" src={element} alt="Photo studio" />
                     </div>
                   ))
@@ -41,7 +58,7 @@ const Room = (props) => {
                 <h1 className="property__name">
                   {cardData.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={cn(`button property__bookmark-button`, {'property__bookmark-button--active': isFavorite})} type="button" onClick={handleFavoriteClick}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -75,7 +92,7 @@ const Room = (props) => {
                 <ul className="property__inside-list">
                   {
                     cardData.goods.map((element, index) => (
-                      <li className="property__inside-item" key={index}>
+                      <li className="property__inside-item" key={index + Date.now()}>
                         {element}
                       </li>
                     ))
@@ -107,6 +124,7 @@ const Room = (props) => {
           <section className="property__map map">
             <Map
               points={otherOffers}
+              activeCard={cardData}
             />
           </section>
         </section>
@@ -114,9 +132,9 @@ const Room = (props) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {otherOffers.map((element, index) => (
+              {otherOffers.map((element) => (
                 <Other
-                  key={index}
+                  key={element.id + element.title}
                   otherOffer={element}
                 />
               ))}
@@ -131,7 +149,20 @@ const Room = (props) => {
 Room.propTypes = {
   cardData: PropTypes.object.isRequired,
   reviewsData: PropTypes.array,
-  otherOffers: PropTypes.array
+  otherOffers: PropTypes.array,
+  authorizationStatus: PropTypes.string,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
-export default Room;
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onButtonClick(id, status) {
+    dispatch(postFavorite(id, status));
+  }
+});
+
+export {Room};
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

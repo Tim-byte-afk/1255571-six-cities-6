@@ -47,14 +47,14 @@ RoomContainer.propTypes = {
   refreshStatus: PropTypes.func
 };
 
-const mapStateToProps = (state) => ({
-  offer: state.offer,
-  offersNearby: state.offersNearby,
-  comments: state.comments,
-  isOfferLoaded: state.isOfferLoaded,
-  isOffersNearbyLoaded: state.isOffersNearbyLoaded,
-  isCommentsLoaded: state.isCommentsLoaded,
-  offerNotFound: state.offerNotFound,
+const mapStateToProps = ({OFFER}) => ({
+  offer: OFFER.offer,
+  offersNearby: OFFER.offersNearby,
+  comments: OFFER.comments,
+  isOfferLoaded: OFFER.isOfferLoaded,
+  isOffersNearbyLoaded: OFFER.isOffersNearbyLoaded,
+  isCommentsLoaded: OFFER.isCommentsLoaded,
+  offerNotFound: OFFER.offerNotFound,
 });
 
 const mapDispatchToProps = (dispatch) => ({

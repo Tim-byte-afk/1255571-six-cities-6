@@ -56,7 +56,7 @@ const MainScreen = (props) => {
                   </section>
                   <div className="cities__right-section">
                     <section className="cities__map map">
-                      <Map points={cityCards} activeCard={activeCardId} activeCity={activeCity} />
+                      <Map points={cityCards} activeCardId={activeCardId} activeCity={activeCity} />
                     </section>
                   </div>
                 </div>
@@ -84,9 +84,9 @@ MainScreen.propTypes = {
   activeSorting: PropTypes.string.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  activeSorting: state.activeSorting
+const mapStateToProps = ({MAIN}) => ({
+  activeCity: MAIN.activeCity,
+  activeSorting: MAIN.activeSorting
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -28,8 +28,17 @@ export const AppRoute = {
 
 export const ApiRoute = {
   HOTELS: `/hotels`,
+  HOTELS_BY_ID: `/hotels/:id`,
+  HOTELS_NEARBY: `/hotels/:id/nearby`,
   FAVORITE: `/favorite`,
+  FAVORITE_BY_ID: `/favorite/:id/:status`,
   COMMENTS: `/comments/`,
+  COMMENTS_BY_ID: `/comments/:id`,
   LOGIN: `/login`,
   LOGOUT: `/logout`,
+};
+
+export const FavoriteStatus = {
+  ADD: `1`,
+  REMOVE: `0`,
 };

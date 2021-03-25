@@ -48,8 +48,8 @@ Sorting.propTypes = {
   activeSorting: PropTypes.string
 };
 
-const mapStateToProps = (state) => ({
-  activeSorting: state.activeSorting
+const mapStateToProps = ({MAIN}) => ({
+  activeSorting: MAIN.activeSorting
 });
 
 const mapDispatchToProps = (dispatch) => ({

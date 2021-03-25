@@ -5,7 +5,7 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const Map = (props) => {
-  const {points = [], activeCard, activeCity} = props;
+  const {points = [], activeCardId = ``, activeCard = {}, activeCity} = props;
 
   const mapRef = useRef();
 
@@ -34,32 +34,65 @@ const Map = (props) => {
   }, [activeCity]);
 
   useEffect(() => {
+    const markers = [];
+
     points.forEach((point) => {
       const icon = leaflet.icon({
-        iconUrl: String(point.id) === String(activeCard) ? `img/pin-active.svg` : `img/pin.svg`,
+        iconUrl: String(point.id) === String(activeCardId) ? `img/pin-active.svg` : `img/pin.svg`,
         iconSize: [30, 30]
       });
 
-      leaflet.marker({
-        lat: point.location.latitude,
-        lng: point.location.longitude
+      markers.push(
+          leaflet.marker({
+            lat: point.location.latitude,
+            lng: point.location.longitude
+          }, {
+            icon
+          })
+          .addTo(mapRef.current)
+          .bindPopup(point.title)
+      );
+    });
+
+    return () => {
+      markers.forEach((marker) => mapRef.current.removeLayer(marker));
+    };
+  }, [activeCardId, activeCard]);
+
+  useEffect(() => {
+    let marker;
+    if (activeCard.id) {
+      const icon = leaflet.icon({
+        iconUrl: `img/pin-active.svg`,
+        iconSize: [30, 30]
+      });
+
+      marker = leaflet.marker({
+        lat: activeCard.location.latitude,
+        lng: activeCard.location.longitude
       }, {
         icon
       })
       .addTo(mapRef.current)
-      .bindPopup(point.title);
-    });
-  }, [activeCard, activeCity]);
+      .bindPopup(activeCard.title);
+    }
+    return () => {
+      if (marker) {
+        mapRef.current.removeLayer(marker);
+      }
+    };
+  }, [activeCardId, activeCard]);
 
   return (
-    <div id="map" style={{height: `100%`}} ref={mapRef}></div>
+    <div id="map" style={{height: `100%`}}></div>
   );
 };
 
 Map.propTypes = {
-  activeCard: PropTypes.string,
+  activeCardId: PropTypes.string,
   points: PropTypes.array,
-  activeCity: PropTypes.string
+  activeCity: PropTypes.string,
+  activeCard: PropTypes.object,
 };
 
 export default Map;

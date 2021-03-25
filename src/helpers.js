@@ -11,3 +11,4 @@ export const sorting = (data, activeSorting) => {
 
   return data;
 };
+

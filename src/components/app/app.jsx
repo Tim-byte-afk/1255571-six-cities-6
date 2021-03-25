@@ -48,9 +48,9 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-  isDataLoaded: state.isDataLoaded,
+const mapStateToProps = ({OFFER}) => ({
+  offers: OFFER.offers,
+  isDataLoaded: OFFER.isDataLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

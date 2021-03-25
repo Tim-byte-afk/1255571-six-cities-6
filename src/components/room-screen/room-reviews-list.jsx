@@ -33,8 +33,8 @@ ReviewsList.propTypes = {
   offerId: PropTypes.number.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
 });
 
 

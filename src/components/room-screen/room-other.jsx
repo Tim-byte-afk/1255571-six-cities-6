@@ -1,15 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {getStarsWidth} from '../../utils';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {useHistory} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {postFavorite} from '../../store/api-actions.js';
+import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
+
+import cn from 'classnames';
 
 const Other = (props) => {
-  const {otherOffer} = props;
+  const {otherOffer, authorizationStatus, onButtonClick} = props;
+  const [isFavorite, setIsFavorite] = useState(otherOffer.is_favorite);
+  const history = useHistory();
 
+  const handleFavoriteClick = () => {
+    if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+      history.push(AppRoute.LOGIN);
+    } else {
+      onButtonClick(otherOffer.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
+      setIsFavorite(!isFavorite);
+    }
+  };
 
   return (
     <React.Fragment>
       <article className="near-places__card place-card">
+        {
+          otherOffer.is_premium && (
+            <div className="place-card__mark">
+              <span>Premium</span>
+            </div>
+          )
+        }
         <div className="near-places__image-wrapper place-card__image-wrapper">
           <Link to={`/offer/${otherOffer.id}`}>
             <img className="place-card__image" src={otherOffer.preview_image} width="260" height="200" alt="Place image" />
@@ -21,7 +44,7 @@ const Other = (props) => {
               <b className="place-card__price-value">&euro;{otherOffer.price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
-            <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+            <button className={cn(`button place-card__bookmark-button`, {'place-card__bookmark-button--active': isFavorite})} type="button" onClick={handleFavoriteClick}>
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -39,7 +62,7 @@ const Other = (props) => {
               {otherOffer.title}
             </Link>
           </h2>
-          <p className="place-card__type">Private room</p>
+          <p className="place-card__type">{otherOffer.type}</p>
         </div>
       </article>
     </React.Fragment>
@@ -48,6 +71,19 @@ const Other = (props) => {
 
 Other.propTypes = {
   otherOffer: PropTypes.object.isRequired,
+  authorizationStatus: PropTypes.string,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
-export default Other;
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onButtonClick(id, status) {
+    dispatch(postFavorite(id, status));
+  }
+});
+
+export {Other};
+export default connect(mapStateToProps, mapDispatchToProps)(Other);
