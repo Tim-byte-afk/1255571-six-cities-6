@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getStarsWidth} from '../../utils';
 import {Link} from 'react-router-dom';
-import {postFavorite} from '../../store/api-actions.js';
+import {postFavorite, fetchFavorite} from '../../store/favorites/operations';
 import {FavoriteStatus, AppRoute} from '../../constants';
-import {ActionCreator} from '../../store/action';
+import {changeCity} from '../../store/main/actions';
+import {getFavotites} from '../../store/favorites/selectors';
 
-import {fetchFavorite} from '../../store/api-actions.js';
 import FavoritesEmpty from './favorites-empty';
 
 import cn from 'classnames';
@@ -119,8 +119,8 @@ Favorites.propTypes = {
   onChangeCity: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({FAVORITES}) => ({
-  favorite: FAVORITES.favorite,
+const mapStateToProps = (state) => ({
+  favorite: getFavotites(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -131,7 +131,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(postFavorite(id, status));
   },
   onChangeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   },
 });
 

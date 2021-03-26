@@ -6,7 +6,8 @@ import Sorting from '../sorting/sorting';
 import Map from '../map-screen/map-screen';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {changeCity} from '../../store/main/actions';
+import {getActiveCity, getActiveSorting} from '../../store/main/selectors';
 
 import {sorting} from '../../helpers';
 
@@ -84,14 +85,14 @@ MainScreen.propTypes = {
   activeSorting: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  activeCity: MAIN.activeCity,
-  activeSorting: MAIN.activeSorting
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state),
+  activeSorting: getActiveSorting(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   },
 });
 

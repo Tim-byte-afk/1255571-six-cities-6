@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {changeSortType} from '../../store/main/actions';
 import cn from 'classnames';
 
 import {SORTING_TYPE} from '../../constants.js';
+import {getActiveSorting} from '../../store/main/selectors';
 
 const Sorting = (props) => {
   const {activeSorting, onChangeSorting} = props;
@@ -48,13 +49,13 @@ Sorting.propTypes = {
   activeSorting: PropTypes.string
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  activeSorting: MAIN.activeSorting
+const mapStateToProps = (state) => ({
+  activeSorting: getActiveSorting(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeSorting(sortingType) {
-    dispatch(ActionCreator.changeSortType(sortingType));
+    dispatch(changeSortType(sortingType));
   },
 });
 

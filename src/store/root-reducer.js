@@ -1,4 +1,4 @@
-import {reducer as combineReducers} from 'redux';
+import {combineReducers} from 'redux';
 import {reducer as favoritesReducer} from './favorites/reducer';
 import {reducer as mainReducer} from './main/reducer';
 import {reducer as offerReducer} from './offer/reducer';

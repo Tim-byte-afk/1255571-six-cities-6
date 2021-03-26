@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import Review from './room-review-screen';
 import PropTypes from 'prop-types';
 import {AUTHORIZATION_STATUS} from '../../constants';
+import {getAuthStatus} from '../../store/user/selectors';
+import {reviewPropTypes} from '../../prop-types';
 
 const ReviewsList = (props) => {
   const {reviewsData = [], authorizationStatus, offerId} = props;
@@ -28,13 +30,13 @@ const ReviewsList = (props) => {
 };
 
 ReviewsList.propTypes = {
-  reviewsData: PropTypes.array.isRequired,
+  reviewsData: PropTypes.arrayOf(reviewPropTypes),
   authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.number.isRequired
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthStatus(state),
 });
 
 

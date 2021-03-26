@@ -4,13 +4,15 @@ import {connect} from 'react-redux';
 import Room from './room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/action';
+import {offerNotFound} from '../../store/offer/actions';
+import {getOffer, getOffersNearby, getComments, getStatusLoadOffer, getStatusLoadOffersNearby, getStatusLoadComments, getStatusNotFoundOffer} from '../../store/offer/selectors';
 
-import {fetchOffer, fetchComments, fetchOffersNearby} from '../../store/api-actions.js';
+import {fetchOffer, fetchComments, fetchOffersNearby} from '../../store/offer/operations';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {offerPropTypes, reviewPropTypes} from '../../prop-types';
 
 const RoomContainer = (props) => {
-  const {offer, offersNearby, comments, isOfferLoaded, isOffersNearbyLoaded, isCommentsLoaded, onLoadData, offerNotFound, refreshStatus} = props;
+  const {offer, offersNearby, comments, isOfferLoaded, isOffersNearbyLoaded, isCommentsLoaded, onLoadData, isOfferNotFound, refreshStatus} = props;
   const {id} = useParams();
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const RoomContainer = (props) => {
     onLoadData(id);
   }, [id]);
 
-  if (offerNotFound) {
+  if (isOfferNotFound) {
     return <NotFoundScreen />;
   }
 
@@ -37,29 +39,29 @@ const RoomContainer = (props) => {
 
 RoomContainer.propTypes = {
   offer: PropTypes.object.isRequired,
-  offersNearby: PropTypes.array.isRequired,
-  comments: PropTypes.array.isRequired,
+  offersNearby: PropTypes.arrayOf(offerPropTypes),
+  comments: PropTypes.arrayOf(reviewPropTypes),
   isOfferLoaded: PropTypes.bool.isRequired,
   isOffersNearbyLoaded: PropTypes.bool.isRequired,
   isCommentsLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func,
-  offerNotFound: PropTypes.bool,
+  isOfferNotFound: PropTypes.bool,
   refreshStatus: PropTypes.func
 };
 
-const mapStateToProps = ({OFFER}) => ({
-  offer: OFFER.offer,
-  offersNearby: OFFER.offersNearby,
-  comments: OFFER.comments,
-  isOfferLoaded: OFFER.isOfferLoaded,
-  isOffersNearbyLoaded: OFFER.isOffersNearbyLoaded,
-  isCommentsLoaded: OFFER.isCommentsLoaded,
-  offerNotFound: OFFER.offerNotFound,
+const mapStateToProps = (state) => ({
+  offer: getOffer(state),
+  offersNearby: getOffersNearby(state),
+  comments: getComments(state),
+  isOfferLoaded: getStatusLoadOffer(state),
+  isOffersNearbyLoaded: getStatusLoadOffersNearby(state),
+  isCommentsLoaded: getStatusLoadComments(state),
+  isOfferNotFound: getStatusNotFoundOffer(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   refreshStatus() {
-    dispatch(ActionCreator.offerNotFound(false));
+    dispatch(offerNotFound(false));
   },
   onLoadData(id) {
     dispatch(fetchOffer(id));

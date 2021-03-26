@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {postComments} from '../../store/api-actions';
+import {postComments} from '../../store/offer/operations';
 
 const Form = (props) => {
   const {offerId, postData} = props;

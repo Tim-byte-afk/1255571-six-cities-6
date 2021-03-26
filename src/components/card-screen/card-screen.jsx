@@ -4,8 +4,11 @@ import {Link} from 'react-router-dom';
 import {getStarsWidth} from '../../utils';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {postFavorite} from '../../store/api-actions.js';
+import {postFavorite} from '../../store/favorites/operations';
 import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
+
+import {getAuthStatus} from '../../store/user/selectors';
+import {offerPropTypes} from '../../prop-types';
 
 import cn from 'classnames';
 
@@ -71,15 +74,15 @@ const CardScreen = (props) => {
 };
 
 CardScreen.propTypes = {
-  cardData: PropTypes.object.isRequired,
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func,
-  authorizationStatus: PropTypes.string,
+  cardData: offerPropTypes,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   onButtonClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

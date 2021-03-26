@@ -7,8 +7,10 @@ import {getStarsWidth} from '../../utils';
 import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {postFavorite} from '../../store/api-actions.js';
+import {postFavorite} from '../../store/favorites/operations';
 import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
+import {getAuthStatus} from '../../store/user/selectors';
+import {offerPropTypes, reviewPropTypes} from '../../prop-types';
 
 import cn from 'classnames';
 
@@ -147,15 +149,15 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  cardData: PropTypes.object.isRequired,
-  reviewsData: PropTypes.array,
-  otherOffers: PropTypes.array,
+  cardData: offerPropTypes,
+  reviewsData: PropTypes.arrayOf(reviewPropTypes),
+  otherOffers: PropTypes.arrayOf(offerPropTypes),
   authorizationStatus: PropTypes.string,
   onButtonClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

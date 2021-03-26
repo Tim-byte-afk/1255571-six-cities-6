@@ -3,8 +3,10 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {AUTHORIZATION_STATUS} from '../../constants';
-import {logout} from '../../store/api-actions';
+import {logout} from '../../store/user/operations';
 import {AppRoute} from '../../constants';
+import {getAuthStatus, getUserInfo} from '../../store/user/selectors';
+import {userInfoPropTypes} from '../../prop-types';
 
 const Header = ({authorizationStatus, userInfo, onLogoutClick}) => {
   let isAuthorized = false;
@@ -51,13 +53,13 @@ const Header = ({authorizationStatus, userInfo, onLogoutClick}) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  userInfo: PropTypes.object.isRequired,
+  userInfo: userInfoPropTypes,
   onLogoutClick: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  userInfo: USER.userInfo,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthStatus(state),
+  userInfo: getUserInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

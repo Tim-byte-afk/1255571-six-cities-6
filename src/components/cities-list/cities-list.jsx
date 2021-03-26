@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {changeCity} from '../../store/main/actions';
 import {SITIES} from '../../constants';
+
+import {getActiveCity} from '../../store/main/selectors';
 
 import cn from 'classnames';
 
@@ -27,13 +29,13 @@ const CitiesList = (props) => {
   );
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  activeCity: MAIN.activeCity,
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   },
 });
 

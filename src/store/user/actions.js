@@ -1,14 +1,18 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   SET_AUTH_INFO: `user/login`,
 };
 
-export const requiredAuthorization = (status) => ({
-  type: ActionType.REQUIRED_AUTHORIZATION,
-  payload: status,
+export const requiredAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => {
+  return {
+    payload: status,
+  };
 });
 
-export const setAuthInfo = (data) => ({
-  type: ActionType.SET_AUTH_INFO,
-  payload: data
+export const setAuthInfo = createAction(ActionType.SET_AUTH_INFO, (data) => {
+  return {
+    payload: data,
+  };
 });

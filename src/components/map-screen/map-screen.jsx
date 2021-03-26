@@ -1,5 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {offerPropTypes} from '../../prop-types';
 
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -90,7 +91,7 @@ const Map = (props) => {
 
 Map.propTypes = {
   activeCardId: PropTypes.string,
-  points: PropTypes.array,
+  points: PropTypes.arrayOf(offerPropTypes),
   activeCity: PropTypes.string,
   activeCard: PropTypes.object,
 };

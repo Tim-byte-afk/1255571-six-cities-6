@@ -1,6 +1,6 @@
 import React from 'react';
 import {getStarsWidth} from '../../utils';
-import PropTypes from 'prop-types';
+import {reviewPropTypes} from '../../prop-types';
 
 const Review = (props) => {
   const {reviewData} = props;
@@ -37,7 +37,7 @@ const Review = (props) => {
 };
 
 Review.propTypes = {
-  reviewData: PropTypes.object.isRequired,
+  reviewData: reviewPropTypes,
 };
 
 export default Review;

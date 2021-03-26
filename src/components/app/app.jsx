@@ -11,8 +11,11 @@ import Favorites from '../favorites-screen/favorites-screen';
 import browserHistory from '../../browser-history';
 import {AppRoute} from '../../constants.js';
 
-import {fetchOffersList, checkAuth} from '../../store/api-actions.js';
+import {fetchOffersList} from '../../store/offer/operations';
+import {checkAuth} from '../../store/user/operations';
 import LoadingScreen from '../loading-screen/loading-screen';
+
+import {getOffers, getLoadStatus} from '../../store/offer/selectors.js';
 
 const App = (props) => {
   const {offers, isDataLoaded, onLoadData} = props;
@@ -48,9 +51,9 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = ({OFFER}) => ({
-  offers: OFFER.offers,
-  isDataLoaded: OFFER.isDataLoaded,
+const mapStateToProps = (state) => ({
+  offers: getOffers(state),
+  isDataLoaded: getLoadStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -61,9 +64,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 App.propTypes = {
-  offers: PropTypes.array,
-  onLoadData: PropTypes.func,
-  isDataLoaded: PropTypes.bool,
+  offers: PropTypes.array.isRequired,
+  onLoadData: PropTypes.func.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 export {App};

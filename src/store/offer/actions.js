@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   LOAD_OFFERS: `offers/loadOffers`,
   LOAD_OFFER: `offers/loadOffer`,
@@ -7,31 +9,34 @@ export const ActionType = {
   OFFER_NOT_FOUND: `offer/notFound`
 };
 
-export const loadOffers = (data) => ({
-  type: ActionType.LOAD_OFFERS,
-  payload: data
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (data) => {
+  return {
+    payload: data,
+  };
 });
 
-export const loadOffer = (data) => ({
-  type: ActionType.LOAD_OFFER,
-  payload: data
+export const loadOffer = createAction(ActionType.LOAD_OFFER, (data) => {
+  return {
+    payload: data,
+  };
 });
 
-export const loadOffersNearby = (data) => ({
-  type: ActionType.LOAD_OFFERS_NEARBY,
-  payload: data
+export const loadOffersNearby = createAction(ActionType.LOAD_OFFERS_NEARBY, (data) => {
+  return {
+    payload: data,
+  };
 });
 
-export const loadComments = (data) => ({
-  type: ActionType.LOAD_COMMENTS,
-  payload: data
+export const loadComments = createAction(ActionType.LOAD_COMMENTS, (data) => {
+  return {
+    payload: data,
+  };
 });
 
-export const reset = () => ({
-  type: ActionType.RESET_DATA,
-});
+export const reset = createAction(ActionType.RESET_DATA, () => {});
 
-export const offerNotFound = (data) => ({
-  type: ActionType.OFFER_NOT_FOUND,
-  payload: data
+export const offerNotFound = createAction(ActionType.OFFER_NOT_FOUND, (data) => {
+  return {
+    payload: data,
+  };
 });
