@@ -1,10 +1,10 @@
-import {ActionType} from '../action';
+import {ActionType} from './actions';
 
 const initialState = {
   favorite: [],
 };
 
-const favoritesReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_FAVORITE:
       return {
@@ -17,4 +17,4 @@ const favoritesReducer = (state = initialState, action) => {
 };
 
 
-export {favoritesReducer};
+export {reducer};

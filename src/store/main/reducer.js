@@ -1,12 +1,12 @@
-import {SITIES, SORTING_TYPE} from '../constants';
-import {ActionType} from '../action';
+import {SITIES, SORTING_TYPE} from '../../constants';
+import {ActionType} from './actions';
 
 const initialState = {
   activeCity: SITIES.PARIS,
   activeSorting: SORTING_TYPE.POPULAR,
 };
 
-const mainReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return {
@@ -24,4 +24,4 @@ const mainReducer = (state = initialState, action) => {
 };
 
 
-export {mainReducer};
+export {reducer};

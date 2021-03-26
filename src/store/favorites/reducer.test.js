@@ -1,6 +1,6 @@
-import {favoritesReducer} from './favoritesReducer';
-import {ActionType} from '../action';
-import {favOfferRaw} from './test.mocks';
+import {reducer as favoritesReducer} from './reducer';
+import {ActionType} from './actions';
+import {offersMocks} from '../tests.mocks';
 
 describe(`Favorites reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -15,10 +15,10 @@ describe(`Favorites reducers work correctly`, () => {
 
     const addFavoriteAction = {
       type: ActionType.LOAD_FAVORITE,
-      payload: favOfferRaw,
+      payload: offersMocks,
     };
 
     expect(favoritesReducer(state, addFavoriteAction))
-      .toEqual({favorite: favOfferRaw});
+      .toEqual({favorite: offersMocks});
   });
 });

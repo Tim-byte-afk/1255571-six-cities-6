@@ -1,4 +1,4 @@
-import {AUTHORIZATION_STATUS} from '../constants';
+import {AUTHORIZATION_STATUS} from '../../constants';
 import {ActionType} from '../action';
 
 const initialState = {
@@ -6,7 +6,7 @@ const initialState = {
   userInfo: {},
 };
 
-const userReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
@@ -24,4 +24,4 @@ const userReducer = (state = initialState, action) => {
 };
 
 
-export {userReducer};
+export {reducer};

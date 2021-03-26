@@ -1,4 +1,4 @@
-import {ActionType} from '../action';
+import {ActionType} from './actions';
 
 const initialState = {
   offers: [],
@@ -12,7 +12,7 @@ const initialState = {
   offerNotFound: false
 };
 
-const offerReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS:
       return {
@@ -56,4 +56,4 @@ const offerReducer = (state = initialState, action) => {
 };
 
 
-export {offerReducer};
+export {reducer};

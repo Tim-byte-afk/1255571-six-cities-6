@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux';
-import {favoritesReducer} from './favorites/favoritesReducer';
-import {mainReducer} from './main/mainReducer';
-import {offerReducer} from './offer/offerReducer';
-import {userReducer} from './user/userReducer';
+import {reducer as combineReducers} from 'redux';
+import {reducer as favoritesReducer} from './favorites/reducer';
+import {reducer as mainReducer} from './main/reducer';
+import {reducer as offerReducer} from './offer/reducer';
+import {reducer as userReducer} from './user/reducer';
 
 export const NameSpace = {
   FAVORITES: `FAVORITES`,

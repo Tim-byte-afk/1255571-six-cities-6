@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {reducer} from './store/reducer';
+import {rootReducer} from './store/root-reducer';
 import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
@@ -18,7 +18,7 @@ const api = createAPI(
 );
 
 const store = createStore(
-    reducer,
+    rootReducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api)),
         applyMiddleware(redirect)
