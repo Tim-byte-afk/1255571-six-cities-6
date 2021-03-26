@@ -33,7 +33,9 @@ export const loadComments = createAction(ActionType.LOAD_COMMENTS, (data) => {
   };
 });
 
-export const reset = createAction(ActionType.RESET_DATA, () => {});
+export const reset = createAction(ActionType.RESET_DATA, () => {
+  return {};
+});
 
 export const offerNotFound = createAction(ActionType.OFFER_NOT_FOUND, (data) => {
   return {
