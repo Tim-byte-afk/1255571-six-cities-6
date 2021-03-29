@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import MainScreen from '../main-screen/main-screen';
 import Login from '../login-screen/login-screen';
 import PrivateRoute from '../private-route/private-route';
-import RoomContainer from '../room-screen/room-container';
+import RoomContainer from '../room-container/room-container';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Favorites from '../favorites-screen/favorites-screen';
 import browserHistory from '../../browser-history';
@@ -15,14 +15,14 @@ import {fetchOffersList} from '../../store/offer/operations';
 import {checkAuth} from '../../store/user/operations';
 import LoadingScreen from '../loading-screen/loading-screen';
 
-import {getOffers, getLoadStatus} from '../../store/offer/selectors.js';
+import {getOffersSelector, getLoadStatusSelector} from '../../store/offer/selectors.js';
 
 const App = (props) => {
-  const {offers, isDataLoaded, onLoadData} = props;
+  const {offers, isDataLoaded, onFetchFavorite} = props;
 
   useEffect(() => {
     if (!isDataLoaded) {
-      onLoadData();
+      onFetchFavorite();
     }
   }, [isDataLoaded]);
 
@@ -52,12 +52,12 @@ const App = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  offers: getOffers(state),
-  isDataLoaded: getLoadStatus(state),
+  offers: getOffersSelector(state),
+  isDataLoaded: getLoadStatusSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
+  onFetchFavorite() {
     dispatch(fetchOffersList());
     dispatch(checkAuth());
   }
@@ -65,7 +65,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 App.propTypes = {
   offers: PropTypes.array.isRequired,
-  onLoadData: PropTypes.func.isRequired,
+  onFetchFavorite: PropTypes.func.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
 };
 

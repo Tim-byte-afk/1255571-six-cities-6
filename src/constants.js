@@ -42,3 +42,9 @@ export const FavoriteStatus = {
   ADD: `1`,
   REMOVE: `0`,
 };
+
+export const Statuses = {
+  PENDING: `pending`,
+  SUCCESS: `success`,
+  ERROR: `status/error`
+};

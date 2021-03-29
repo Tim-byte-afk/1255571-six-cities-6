@@ -5,8 +5,9 @@ export const ActionType = {
   LOAD_OFFER: `offers/loadOffer`,
   LOAD_OFFERS_NEARBY: `offers/loadOffersNearby`,
   LOAD_COMMENTS: `offers/loadComments`,
+  STATUS_COMMENT_SENDING: `offer/statusCommentSending`,
   RESET_DATA: `offers/reset`,
-  OFFER_NOT_FOUND: `offer/notFound`
+  OFFER_NOT_FOUND: `offer/notFound`,
 };
 
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (data) => {
@@ -28,6 +29,12 @@ export const loadOffersNearby = createAction(ActionType.LOAD_OFFERS_NEARBY, (dat
 });
 
 export const loadComments = createAction(ActionType.LOAD_COMMENTS, (data) => {
+  return {
+    payload: data,
+  };
+});
+
+export const statusCommentSending = createAction(ActionType.STATUS_COMMENT_SENDING, (data) => {
   return {
     payload: data,
   };

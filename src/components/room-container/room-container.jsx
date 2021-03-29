@@ -1,23 +1,23 @@
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Room from './room-screen';
+import Room from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {offerNotFound} from '../../store/offer/actions';
-import {getOffer, getOffersNearby, getComments, getStatusLoadOffer, getStatusLoadOffersNearby, getStatusLoadComments, getStatusNotFoundOffer} from '../../store/offer/selectors';
+import {getOfferSelector, getOffersNearbySelector, getCommentsSelector, getStatusLoadOfferSelector, getStatusLoadOffersNearbySelector, getStatusLoadCommentsSelector, getStatusNotFoundOfferSelector} from '../../store/offer/selectors';
 
 import {fetchOffer, fetchComments, fetchOffersNearby} from '../../store/offer/operations';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {offerPropTypes, reviewPropTypes} from '../../prop-types';
 
 const RoomContainer = (props) => {
-  const {offer, offersNearby, comments, isOfferLoaded, isOffersNearbyLoaded, isCommentsLoaded, onLoadData, isOfferNotFound, refreshStatus} = props;
+  const {offer, offersNearby, comments, isOfferLoaded, isOffersNearbyLoaded, isCommentsLoaded, onFetchRoomInfo, isOfferNotFound, refreshStatus} = props;
   const {id} = useParams();
 
   useEffect(() => {
     refreshStatus();
-    onLoadData(id);
+    onFetchRoomInfo(id);
   }, [id]);
 
   if (isOfferNotFound) {
@@ -44,30 +44,31 @@ RoomContainer.propTypes = {
   isOfferLoaded: PropTypes.bool.isRequired,
   isOffersNearbyLoaded: PropTypes.bool.isRequired,
   isCommentsLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func,
+  onFetchRoomInfo: PropTypes.func,
   isOfferNotFound: PropTypes.bool,
-  refreshStatus: PropTypes.func
+  refreshStatus: PropTypes.func,
+  onChangeCity: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-  offer: getOffer(state),
-  offersNearby: getOffersNearby(state),
-  comments: getComments(state),
-  isOfferLoaded: getStatusLoadOffer(state),
-  isOffersNearbyLoaded: getStatusLoadOffersNearby(state),
-  isCommentsLoaded: getStatusLoadComments(state),
-  isOfferNotFound: getStatusNotFoundOffer(state),
+  offer: getOfferSelector(state),
+  offersNearby: getOffersNearbySelector(state),
+  comments: getCommentsSelector(state),
+  isOfferLoaded: getStatusLoadOfferSelector(state),
+  isOffersNearbyLoaded: getStatusLoadOffersNearbySelector(state),
+  isCommentsLoaded: getStatusLoadCommentsSelector(state),
+  isOfferNotFound: getStatusNotFoundOfferSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   refreshStatus() {
     dispatch(offerNotFound(false));
   },
-  onLoadData(id) {
+  onFetchRoomInfo(id) {
     dispatch(fetchOffer(id));
     dispatch(fetchComments(id));
     dispatch(fetchOffersNearby(id));
-  }
+  },
 });
 
 export {RoomContainer};

@@ -7,14 +7,14 @@ import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
 import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
 
-import {getAuthStatus} from '../../store/user/selectors';
+import {getAuthStatusSelector} from '../../store/user/selectors';
 import {offerPropTypes} from '../../prop-types';
 
 import cn from 'classnames';
 
 const CardScreen = (props) => {
 
-  const {cardData, onMouseEnter, onMouseLeave, onButtonClick, authorizationStatus} = props;
+  const {cardData, onMouseEnter, onMouseLeave, onPostFavorite, authorizationStatus} = props;
   const [isFavorite, setIsFavorite] = useState(cardData.is_favorite);
   const history = useHistory();
 
@@ -24,7 +24,7 @@ const CardScreen = (props) => {
     if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
       history.push(AppRoute.LOGIN);
     } else {
-      onButtonClick(cardData.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
+      onPostFavorite(cardData.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
       setIsFavorite(!isFavorite);
     }
   };
@@ -78,15 +78,15 @@ CardScreen.propTypes = {
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  onButtonClick: PropTypes.func.isRequired,
+  onPostFavorite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthStatus(state),
+  authorizationStatus: getAuthStatusSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onButtonClick(id, status) {
+  onPostFavorite(id, status) {
     dispatch(postFavorite(id, status));
   }
 });

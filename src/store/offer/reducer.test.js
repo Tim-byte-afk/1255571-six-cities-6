@@ -1,6 +1,7 @@
 import {reducer} from './reducer';
 import {ActionType} from './actions';
 import {offersMocks, offerMocks, commentsMocks} from '../tests.mocks';
+import {Statuses} from '../../constants';
 
 describe(`Offers reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -14,7 +15,8 @@ describe(`Offers reducers work correctly`, () => {
         isOfferLoaded: false,
         isOffersNearbyLoaded: false,
         isCommentsLoaded: false,
-        offerNotFound: false
+        offerNotFound: false,
+        statusCommentSending: Statuses.SUCCESS
       });
   });
 
@@ -123,6 +125,22 @@ describe(`Offers reducers work correctly`, () => {
         isOfferLoaded: false,
         isOffersNearbyLoaded: false,
         isCommentsLoaded: false,
+      });
+  });
+
+  it(`Reducer should add status comment sending`, () => {
+    const state = {
+      statusCommentSending: Statuses.SUCCESS,
+    };
+
+    const addCommitsAction = {
+      type: ActionType.STATUS_COMMENT_SENDING,
+      payload: Statuses.ERROR,
+    };
+
+    expect(reducer(state, addCommitsAction))
+      .toEqual({
+        statusCommentSending: Statuses.ERROR
       });
   });
 });

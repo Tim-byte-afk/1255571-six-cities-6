@@ -12,3 +12,15 @@ export const sorting = (data, activeSorting) => {
   return data;
 };
 
+export const sortingDate = (data) => {
+  return data.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+};
+
+export const getFavoritesByCity = (favorites) => {
+  return favorites.reduce((acc, cur) => {
+    acc[cur.city.name] = acc[cur.city.name] ? [...(acc[cur.city.name]), cur] : [cur];
+    return acc;
+  }, {});
+};

@@ -1,4 +1,5 @@
 import {ActionType} from './actions';
+import {Statuses} from '../../constants';
 
 const initialState = {
   offers: [],
@@ -9,7 +10,8 @@ const initialState = {
   isOfferLoaded: false,
   isOffersNearbyLoaded: false,
   isCommentsLoaded: false,
-  offerNotFound: false
+  offerNotFound: false,
+  statusCommentSending: Statuses.SUCCESS
 };
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +51,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offerNotFound: action.payload
+      };
+    case ActionType.STATUS_COMMENT_SENDING:
+      return {
+        ...state,
+        statusCommentSending: action.payload
       };
   }
 

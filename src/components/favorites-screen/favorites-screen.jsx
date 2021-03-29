@@ -4,31 +4,31 @@ import Footer from '../footer/footer';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getStarsWidth} from '../../utils';
+import {getFavoritesByCity} from '../../helpers';
 import {Link} from 'react-router-dom';
 import {postFavorite, fetchFavorite} from '../../store/favorites/operations';
 import {FavoriteStatus, AppRoute} from '../../constants';
 import {changeCity} from '../../store/main/actions';
-import {getFavotites} from '../../store/favorites/selectors';
+import {getFavotitesSelector} from '../../store/favorites/selectors';
 
 import FavoritesEmpty from './favorites-empty';
 
 import cn from 'classnames';
 
 const Favorites = (props) => {
-  const {onLoadData, favorite = [], onButtonClick, onChangeCity} = props;
+  const {onFetchFavorite, favorites = [], onPostFavorite, onChangeCity} = props;
 
   useEffect(() => {
-    onLoadData();
-  }, [favorite]);
+    onFetchFavorite();
+  }, []);
 
-  const favoriteByCity = favorite.reduce((acc, cur) => {
-    acc[cur.city.name] = acc[cur.city.name] ? [...(acc[cur.city.name]), cur] : [cur];
-    return acc;
-  }, {});
+  const favoritesByCity = getFavoritesByCity(favorites);
+
+  // console.log(favoritesByCity);
 
   const handleFavoriteClick = (id, isFavorite) => {
-    onButtonClick(id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
-    onLoadData();
+    onPostFavorite(id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
+    onFetchFavorite();
   };
 
   const handleChangeCityClick = (city) => {
@@ -40,14 +40,14 @@ const Favorites = (props) => {
       <div className="page">
         <Header />
         {
-          favorite.length === 0 ? <FavoritesEmpty />
+          favorites.length === 0 ? <FavoritesEmpty />
             :
             <main className="page__main page__main--favorites">
               <div className="page__favorites-container container">
                 <section className="favorites">
                   <h1 className="favorites__title">Saved listing</h1>
                   <ul className="favorites__list">
-                    {Object.entries(favoriteByCity).map(([city, savedOffers]) => (
+                    {Object.entries(favoritesByCity).map(([city, savedOffers]) => (
                       <li className="favorites__locations-items" key={city}>
                         <div className="favorites__locations locations locations--current">
                           <div className="locations__item">
@@ -67,7 +67,7 @@ const Favorites = (props) => {
                                 )
                               }
                               <div className="favorites__image-wrapper place-card__image-wrapper">
-                                <Link to={`/offer/${element.id}`}>
+                                <Link to={`/offer/${element.id}`} onClick={() => handleChangeCityClick(element.city.name)}>
                                   <img className="place-card__image" src={element.preview_image} width="150" height="110" alt="Place image" />
                                 </Link>
                               </div>
@@ -91,7 +91,7 @@ const Favorites = (props) => {
                                   </div>
                                 </div>
                                 <h2 className="place-card__name">
-                                  <a href="#">{element.title}</a>
+                                  <Link to={`/offer/${element.id}`} onClick={() => handleChangeCityClick(element.city.name)}>{element.title}</Link>
                                 </h2>
                                 <p className="place-card__type">{element.type}</p>
                               </div>
@@ -113,21 +113,21 @@ const Favorites = (props) => {
 };
 
 Favorites.propTypes = {
-  favorite: PropTypes.array.isRequired,
-  onLoadData: PropTypes.func,
-  onButtonClick: PropTypes.func.isRequired,
+  favorites: PropTypes.array.isRequired,
+  onFetchFavorite: PropTypes.func,
+  onPostFavorite: PropTypes.func.isRequired,
   onChangeCity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  favorite: getFavotites(state),
+  favorites: getFavotitesSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
+  onFetchFavorite() {
     dispatch(fetchFavorite());
   },
-  onButtonClick(id, status) {
+  onPostFavorite(id, status) {
     dispatch(postFavorite(id, status));
   },
   onChangeCity(city) {

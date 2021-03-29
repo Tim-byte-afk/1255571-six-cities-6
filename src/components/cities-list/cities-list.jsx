@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {changeCity} from '../../store/main/actions';
 import {SITIES} from '../../constants';
 
-import {getActiveCity} from '../../store/main/selectors';
+import {getActiveCitySelector} from '../../store/main/selectors';
 
 import cn from 'classnames';
 
@@ -30,7 +30,7 @@ const CitiesList = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
+  activeCity: getActiveCitySelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

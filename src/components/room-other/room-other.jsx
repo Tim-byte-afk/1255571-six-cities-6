@@ -6,13 +6,13 @@ import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
 import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
-import {getAuthStatus} from '../../store/user/selectors';
+import {getAuthStatusSelector} from '../../store/user/selectors';
 import {offerPropTypes} from '../../prop-types';
 
 import cn from 'classnames';
 
 const Other = (props) => {
-  const {otherOffer, authorizationStatus, onButtonClick} = props;
+  const {otherOffer, authorizationStatus, onPostFavorite} = props;
   const [isFavorite, setIsFavorite] = useState(otherOffer.is_favorite);
   const history = useHistory();
 
@@ -20,7 +20,7 @@ const Other = (props) => {
     if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
       history.push(AppRoute.LOGIN);
     } else {
-      onButtonClick(otherOffer.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
+      onPostFavorite(otherOffer.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
       setIsFavorite(!isFavorite);
     }
   };
@@ -74,15 +74,15 @@ const Other = (props) => {
 Other.propTypes = {
   otherOffer: offerPropTypes,
   authorizationStatus: PropTypes.string,
-  onButtonClick: PropTypes.func.isRequired,
+  onPostFavorite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthStatus(state),
+  authorizationStatus: getAuthStatusSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onButtonClick(id, status) {
+  onPostFavorite(id, status) {
     dispatch(postFavorite(id, status));
   }
 });

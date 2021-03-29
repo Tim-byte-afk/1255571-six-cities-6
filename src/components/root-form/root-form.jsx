@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {postComments} from '../../store/offer/operations';
+import {getCommentStatusPendingSelector} from '../../store/offer/selectors';
+import {Statuses} from '../../constants';
 
 const Form = (props) => {
-  const {offerId, postData} = props;
+  const {offerId, postData, commentSendingStatus} = props;
   const [rating, setRating] = useState(4);
   const [review, setReview] = useState(``);
 
@@ -69,8 +71,9 @@ const Form = (props) => {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={review.length < 50}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={review.length < 50 || review.length > 300 || commentSendingStatus === Statuses.PENDING}>Submit</button>
       </div>
+      {commentSendingStatus === Statuses.ERROR && <div style={{color: `red`}}><span>Oups... Review sending error!</span></div>}
     </form>
   );
 };
@@ -78,10 +81,11 @@ const Form = (props) => {
 Form.propTypes = {
   offerId: PropTypes.number.isRequired,
   postData: PropTypes.func.isRequired,
+  commentSendingStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  commentSendingStatus: getCommentStatusPendingSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

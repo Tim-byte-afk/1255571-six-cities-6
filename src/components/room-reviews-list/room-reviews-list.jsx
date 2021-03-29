@@ -1,23 +1,29 @@
 import React from 'react';
 import Form from '../root-form/root-form';
 import {connect} from 'react-redux';
-import Review from './room-review-screen';
+import Review from '../room-review-screen/room-review-screen';
 import PropTypes from 'prop-types';
 import {AUTHORIZATION_STATUS} from '../../constants';
-import {getAuthStatus} from '../../store/user/selectors';
+import {sortingDate} from '../../helpers';
+import {getAuthStatusSelector} from '../../store/user/selectors';
 import {reviewPropTypes} from '../../prop-types';
 
 const ReviewsList = (props) => {
   const {reviewsData = [], authorizationStatus, offerId} = props;
 
+  let reviews = [];
+  if (reviewsData.length > 0) {
+    reviews = sortingDate(reviewsData);
+  }
+
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsData.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
-        {reviewsData.map((element) => (
+        {reviews.slice(0, 10).map((element) => (
           <Review
             reviewData={element}
-            key={element.id}
+            key={`${element.id}_${element.date}`}
           />
         ))}
       </ul>
@@ -36,7 +42,7 @@ ReviewsList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthStatus(state),
+  authorizationStatus: getAuthStatusSelector(state),
 });
 
 

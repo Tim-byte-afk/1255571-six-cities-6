@@ -5,7 +5,7 @@ import {changeSortType} from '../../store/main/actions';
 import cn from 'classnames';
 
 import {SORTING_TYPE} from '../../constants.js';
-import {getActiveSorting} from '../../store/main/selectors';
+import {getActiveSortingSelector} from '../../store/main/selectors';
 
 const Sorting = (props) => {
   const {activeSorting, onChangeSorting} = props;
@@ -50,7 +50,7 @@ Sorting.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeSorting: getActiveSorting(state),
+  activeSorting: getActiveSortingSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

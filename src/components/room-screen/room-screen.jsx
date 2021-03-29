@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
 import Header from '../header/header';
-import ReviewsList from './room-reviews-list';
+import ReviewsList from '../room-reviews-list/room-reviews-list';
 import Map from '../map-screen/map-screen';
-import Other from './room-other';
+import Other from '../room-other/room-other';
 import {getStarsWidth} from '../../utils';
 import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
 import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
-import {getAuthStatus} from '../../store/user/selectors';
+import {getAuthStatusSelector} from '../../store/user/selectors';
 import {offerPropTypes, reviewPropTypes} from '../../prop-types';
 
 import cn from 'classnames';
 
 const Room = (props) => {
-  const {cardData, reviewsData, otherOffers, authorizationStatus, onButtonClick} = props;
+  const {cardData, reviewsData, otherOffers, authorizationStatus, onPostFavorite} = props;
   const [isFavorite, setIsFavorite] = useState(cardData.is_favorite);
   const history = useHistory();
 
@@ -23,7 +23,7 @@ const Room = (props) => {
     if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
       history.push(AppRoute.LOGIN);
     } else {
-      onButtonClick(cardData.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
+      onPostFavorite(cardData.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
       setIsFavorite(!isFavorite);
     }
   };
@@ -127,6 +127,7 @@ const Room = (props) => {
             <Map
               points={otherOffers}
               activeCard={cardData}
+              activeCity={cardData.city.name}
             />
           </section>
         </section>
@@ -153,15 +154,15 @@ Room.propTypes = {
   reviewsData: PropTypes.arrayOf(reviewPropTypes),
   otherOffers: PropTypes.arrayOf(offerPropTypes),
   authorizationStatus: PropTypes.string,
-  onButtonClick: PropTypes.func.isRequired,
+  onPostFavorite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthStatus(state),
+  authorizationStatus: getAuthStatusSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onButtonClick(id, status) {
+  onPostFavorite(id, status) {
     dispatch(postFavorite(id, status));
   }
 });

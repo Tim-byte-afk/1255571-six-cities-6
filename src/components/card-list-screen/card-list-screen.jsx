@@ -10,7 +10,7 @@ const CardListScreen = (props) => {
       {cardsData.map((element) => (
         <CardScreen
           cardData={element}
-          key={element.id + element.title}
+          key={`${element.id}_${element.title}`}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         />

@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {AUTHORIZATION_STATUS} from '../../constants';
 import {logout} from '../../store/user/operations';
 import {AppRoute} from '../../constants';
-import {getAuthStatus, getUserInfo} from '../../store/user/selectors';
+import {getAuthStatusSelector, getUserInfoSelector} from '../../store/user/selectors';
 import {userInfoPropTypes} from '../../prop-types';
 
 const Header = ({authorizationStatus, userInfo, onLogoutClick}) => {
@@ -58,8 +58,8 @@ Header.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthStatus(state),
-  userInfo: getUserInfo(state),
+  authorizationStatus: getAuthStatusSelector(state),
+  userInfo: getUserInfoSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
