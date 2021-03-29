@@ -137,7 +137,7 @@ const Room = (props) => {
             <div className="near-places__list places__list">
               {otherOffers.map((element) => (
                 <Other
-                  key={element.id + element.title}
+                  key={`${element.id}_${element.title}`}
                   otherOffer={element}
                 />
               ))}

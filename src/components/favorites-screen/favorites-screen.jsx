@@ -58,7 +58,7 @@ const Favorites = (props) => {
                         </div>
                         <div className="favorites__places">
                           {savedOffers.map((element) => (
-                            <article className="favorites__card place-card" key={element.id}>
+                            <article className="favorites__card place-card" key={`${element.id}_${element.title}`}>
                               {
                                 element.is_premium && (
                                   <div className="place-card__mark">

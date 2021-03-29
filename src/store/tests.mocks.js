@@ -9,7 +9,7 @@ export const offersMocks = [
       },
       "name": `Amsterdam`
     },
-    "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+    "description": `A quiet cozy and picturfhgfhfhgfesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
     "host": {
       "avatar_url": `img/1.png`,
@@ -30,7 +30,7 @@ export const offersMocks = [
     "preview_image": `img/1.png`,
     "price": 120,
     "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
+    "title": `Beaut;kl;kl;kkliful & luxurious studio at great location`,
     "type": `apartment`
   },
   {
@@ -43,7 +43,7 @@ export const offersMocks = [
       },
       "name": `Amsterdam`
     },
-    "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+    "description": `A quiet cozy and pictqeqweqweqeuresque that hides behind a a river by the unique lightness of Amsterdam.`,
     "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
     "host": {
       "avatar_url": `img/1.png`,
@@ -64,7 +64,7 @@ export const offersMocks = [
     "preview_image": `img/1.png`,
     "price": 120,
     "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
+    "title": `Beautifewrewrewrwul & luxurious studio at great location`,
     "type": `apartment`
   }
 ];
@@ -79,7 +79,7 @@ export const offerMocks = {
     },
     "name": `Amsterdam`
   },
-  "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+  "description": `A quiet cozy and picturelkjlkjlkjljklkjcvsque that hides behind a a river by the unique lightness of Amsterdam.`,
   "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
   "host": {
     "avatar_url": `img/1.png`,
@@ -100,13 +100,13 @@ export const offerMocks = {
   "preview_image": `img/1.png`,
   "price": 120,
   "rating": 4.8,
-  "title": `Beautiful & luxurious studio at great location`,
+  "title": `Beautiful & luxjhjghjghurious studio at great location`,
   "type": `apartment`
 };
 
 export const commentsMocks = [
   {
-    "comment": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+    "comment": `A quiet cozy and pictdsfsdfdsfuresque that hides behind a a river by the unique lightness of Amsterdam.`,
     "date": `2019-05-08T14:13:56.569Z`,
     "id": 1,
     "rating": 4,

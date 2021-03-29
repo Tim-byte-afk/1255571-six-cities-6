@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import MainScreen from '../main-screen/main-screen';
@@ -8,7 +8,6 @@ import PrivateRoute from '../private-route/private-route';
 import RoomContainer from '../room-container/room-container';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Favorites from '../favorites-screen/favorites-screen';
-import browserHistory from '../../browser-history';
 import {AppRoute} from '../../constants.js';
 
 import {fetchOffersList} from '../../store/offer/operations';
@@ -31,23 +30,21 @@ const App = (props) => {
   }
 
   return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route path={AppRoute.MAIN} exact >
-          <MainScreen cardsData={offers} />
-        </Route>
-        <PrivateRoute path={AppRoute.FAVORITES} exact render={() => <Favorites /> } />
-        <Route path={AppRoute.LOGIN} exact >
-          <Login />
-        </Route>
-        <Route path={AppRoute.OFFER} exact >
-          <RoomContainer />
-        </Route>
-        <Route>
-          <NotFoundScreen />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route path={AppRoute.MAIN} exact >
+        <MainScreen cardsData={offers} />
+      </Route>
+      <PrivateRoute path={AppRoute.FAVORITES} exact render={() => <Favorites /> } />
+      <Route path={AppRoute.LOGIN} exact >
+        <Login />
+      </Route>
+      <Route path={AppRoute.OFFER} exact >
+        <RoomContainer />
+      </Route>
+      <Route>
+        <NotFoundScreen />
+      </Route>
+    </Switch>
   );
 };
 
