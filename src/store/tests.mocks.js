@@ -51,7 +51,7 @@ export const offersMocks = [
       "is_pro": true,
       "name": `Angelina`
     },
-    "id": 1,
+    "id": 2,
     "images": [`img/1.png`, `img/2.png`],
     "is_favorite": false,
     "is_premium": false,
@@ -120,7 +120,7 @@ export const commentsMocks = [
   {
     "comment": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "date": `2019-05-08T14:13:56.569Z`,
-    "id": 1,
+    "id": 2,
     "rating": 4,
     "user": {
       "avatar_url": `img/1.png`,
@@ -132,7 +132,7 @@ export const commentsMocks = [
   {
     "comment": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "date": `2019-05-08T14:13:56.569Z`,
-    "id": 1,
+    "id": 3,
     "rating": 4,
     "user": {
       "avatar_url": `img/1.png`,
