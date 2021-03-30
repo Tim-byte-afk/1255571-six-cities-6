@@ -1,4 +1,11 @@
-import {loadComments, loadOffer, loadOffers, loadOffersNearby, offerNotFound, statusCommentSending} from './actions';
+import {
+  loadComments,
+  loadOffer,
+  loadOffers,
+  loadOffersNearby,
+  offerNotFound,
+  statusCommentSending
+} from './actions';
 import {ApiRoute, Statuses} from '../../constants';
 
 export const fetchOffersList = () => (dispatch, _getState, api) => {

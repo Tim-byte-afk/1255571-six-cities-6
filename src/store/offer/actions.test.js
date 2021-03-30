@@ -1,4 +1,12 @@
-import {ActionType, loadComments, loadOffer, loadOffers, loadOffersNearby, offerNotFound, reset} from './actions';
+import {
+  ActionType,
+  loadComments,
+  loadOffer,
+  loadOffers,
+  loadOffersNearby,
+  offerNotFound,
+  reset
+} from './actions';
 
 describe(`Action creators work correctly`, () => {
 

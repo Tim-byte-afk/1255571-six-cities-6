@@ -15,7 +15,13 @@ import {offerPropTypes, reviewPropTypes} from '../../prop-types';
 import cn from 'classnames';
 
 const RoomScreen = (props) => {
-  const {cardData, reviewsData, otherOffers, authorizationStatus, onPostFavorite} = props;
+  const {
+    cardData,
+    reviewsData,
+    otherOffers,
+    authorizationStatus,
+    onPostFavorite
+  } = props;
   const [isFavorite, setIsFavorite] = useState(cardData.is_favorite);
   const history = useHistory();
 

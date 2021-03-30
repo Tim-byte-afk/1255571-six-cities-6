@@ -5,14 +5,36 @@ import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {offerNotFound} from '../../store/offer/actions';
-import {getOfferSelector, getOffersNearbySelector, getCommentsSelector, getStatusLoadOfferSelector, getStatusLoadOffersNearbySelector, getStatusLoadCommentsSelector, getStatusNotFoundOfferSelector} from '../../store/offer/selectors';
+import {
+  getOfferSelector,
+  getOffersNearbySelector,
+  getCommentsSelector,
+  getStatusLoadOfferSelector,
+  getStatusLoadOffersNearbySelector,
+  getStatusLoadCommentsSelector,
+  getStatusNotFoundOfferSelector
+} from '../../store/offer/selectors';
 
-import {fetchOffer, fetchComments, fetchOffersNearby} from '../../store/offer/operations';
+import {
+  fetchOffer,
+  fetchComments,
+  fetchOffersNearby
+} from '../../store/offer/operations';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {offerPropTypes, reviewPropTypes} from '../../prop-types';
 
 const RoomContainer = (props) => {
-  const {offer, offersNearby, comments, isOfferLoaded, isOffersNearbyLoaded, isCommentsLoaded, onFetchRoomInfo, isOfferNotFound, refreshStatus} = props;
+  const {
+    offer,
+    offersNearby,
+    comments,
+    isOfferLoaded,
+    isOffersNearbyLoaded,
+    isCommentsLoaded,
+    onFetchRoomInfo,
+    isOfferNotFound,
+    refreshStatus
+  } = props;
   const {id} = useParams();
 
   useEffect(() => {
