@@ -1,31 +1,31 @@
 import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import {login} from '../../store/user/operations';
 import {getAuthStatusSelector} from '../../store/user/selectors';
-import {AUTHORIZATION_STATUS, AppRoute} from '../../constants';
-import {useHistory} from 'react-router-dom';
+import {AuthorizationStatus, AppRoute} from '../../constants';
 
 import Header from '../header/header';
 
-const Login = (props) => {
-  const {onSubmit, authorizationStatus} = props;
+const LoginScreen = (props) => {
+  const {onSubmitAuthInfo, authorizationStatus} = props;
 
   const loginRef = useRef();
   const passwordRef = useRef();
-  const history = useHistory();
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    onSubmitAuthInfo({
       email: loginRef.current.value,
       password: passwordRef.current.value,
     });
   };
 
-  if (authorizationStatus === AUTHORIZATION_STATUS.AUTH) {
-    history.push(AppRoute.MAIN);
+  if (isAuthorized) {
+    return <Redirect to={AppRoute.MAIN} />;
   }
 
   return (
@@ -76,8 +76,8 @@ const Login = (props) => {
   );
 };
 
-Login.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+LoginScreen.propTypes = {
+  onSubmitAuthInfo: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
@@ -87,10 +87,10 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
+  onSubmitAuthInfo(authData) {
     dispatch(login(authData));
   }
 });
 
-export {Login};
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export {LoginScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

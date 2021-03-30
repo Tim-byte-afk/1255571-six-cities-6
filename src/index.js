@@ -8,12 +8,12 @@ import {Router as BrowserRouter} from 'react-router-dom';
 import App from './components/app/app';
 import {createAPI} from './api';
 import {requiredAuthorization} from './store/user/actions';
-import {AUTHORIZATION_STATUS} from './constants';
+import {AuthorizationStatus} from './constants';
 import {checkAuth} from './store/user/operations';
 import browserHistory from "./browser-history";
 
 const api = createAPI(
-    () => store.dispatch(requiredAuthorization(AUTHORIZATION_STATUS.NO_AUTH))
+    () => store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH))
 );
 
 const store = configureStore({

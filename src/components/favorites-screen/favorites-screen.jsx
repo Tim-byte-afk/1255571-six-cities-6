@@ -15,7 +15,7 @@ import FavoritesEmpty from './favorites-empty';
 
 import cn from 'classnames';
 
-const Favorites = (props) => {
+const FavoriteScreen = (props) => {
   const {onFetchFavorite, favorites = [], onPostFavorite, onChangeCity} = props;
 
   useEffect(() => {
@@ -23,8 +23,6 @@ const Favorites = (props) => {
   }, []);
 
   const favoritesByCity = getFavoritesByCity(favorites);
-
-  // console.log(favoritesByCity);
 
   const handleFavoriteClick = (id, isFavorite) => {
     onPostFavorite(id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
@@ -112,7 +110,7 @@ const Favorites = (props) => {
   );
 };
 
-Favorites.propTypes = {
+FavoriteScreen.propTypes = {
   favorites: PropTypes.array.isRequired,
   onFetchFavorite: PropTypes.func,
   onPostFavorite: PropTypes.func.isRequired,
@@ -135,5 +133,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export {Favorites};
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export {FavoriteScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteScreen);

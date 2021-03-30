@@ -3,7 +3,7 @@ import {reducer} from './reducer';
 import {createAPI} from '../../api';
 import * as operations from './operations';
 import {ActionType} from './actions';
-import {ApiRoute, AppRoute, AUTHORIZATION_STATUS} from '../../constants';
+import {ApiRoute, AppRoute, AuthorizationStatus} from '../../constants';
 import {auth} from '../tests.mocks';
 
 const api = createAPI(() => {});
@@ -12,20 +12,20 @@ describe(`Reducer 'user' should work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, ActionType.REQUIRED_AUTHORIZATION))
       .toEqual({
-        authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         userInfo: {}
       });
   });
 
   it(`Reducer should update authorizationStatus to 'auth'`, () => {
-    const state = {authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH};
+    const state = {authorizationStatus: AuthorizationStatus.NO_AUTH};
     const requiredAuthorizationAction = {
       type: ActionType.REQUIRED_AUTHORIZATION,
-      payload: AUTHORIZATION_STATUS.AUTH
+      payload: AuthorizationStatus.AUTH
     };
 
     expect(reducer(state, requiredAuthorizationAction))
-      .toEqual({authorizationStatus: AUTHORIZATION_STATUS.AUTH});
+      .toEqual({authorizationStatus: AuthorizationStatus.AUTH});
   });
 
 });
@@ -49,7 +49,7 @@ describe(`Async operation work correctly`, () => {
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: AUTHORIZATION_STATUS.AUTH,
+          payload: AuthorizationStatus.AUTH,
         });
       });
   });
@@ -75,7 +75,7 @@ describe(`Async operation work correctly`, () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: AUTHORIZATION_STATUS.AUTH,
+          payload: AuthorizationStatus.AUTH,
         });
 
         expect(dispatch).toHaveBeenNthCalledWith(3, {

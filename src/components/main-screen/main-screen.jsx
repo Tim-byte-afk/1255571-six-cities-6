@@ -3,7 +3,7 @@ import CardListScreen from '../card-list-screen/card-list-screen';
 import Header from '../header/header';
 import CitiesList from '../cities-list/cities-list';
 import Sorting from '../sorting/sorting';
-import Map from '../map-screen/map-screen';
+import Map from '../map/map';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {changeCity} from '../../store/main/actions';

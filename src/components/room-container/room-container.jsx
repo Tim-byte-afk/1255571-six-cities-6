@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Room from '../room-screen/room-screen';
+import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {offerNotFound} from '../../store/offer/actions';
@@ -30,7 +30,7 @@ const RoomContainer = (props) => {
 
   if (offer) {
     return (
-      <Room cardData={offer} reviewsData={comments} otherOffers={offersNearby} />
+      <RoomScreen cardData={offer} reviewsData={comments} otherOffers={offersNearby} />
     );
   }
 

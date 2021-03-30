@@ -5,7 +5,7 @@ import {getStarsWidth} from '../../utils';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
-import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
+import {AuthorizationStatus, AppRoute, FavoriteStatus} from '../../constants';
 
 import {getAuthStatusSelector} from '../../store/user/selectors';
 import {offerPropTypes} from '../../prop-types';
@@ -21,7 +21,7 @@ const CardScreen = (props) => {
   const handleMouseOn = (id) => () => onMouseEnter(id);
 
   const handleFavoriteClick = () => {
-    if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       history.push(AppRoute.LOGIN);
     } else {
       onPostFavorite(cardData.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);

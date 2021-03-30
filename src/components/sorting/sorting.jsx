@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {changeSortType} from '../../store/main/actions';
 import cn from 'classnames';
 
-import {SORTING_TYPE} from '../../constants.js';
+import {SortingType} from '../../constants.js';
 import {getActiveSortingSelector} from '../../store/main/selectors';
 
 const Sorting = (props) => {
@@ -27,7 +27,7 @@ const Sorting = (props) => {
       </span>
       <ul className={cn(`places__options places__options--custom`, {'places__options--opened': opened})}>
         {
-          Object.values(SORTING_TYPE).map((item) =>
+          Object.values(SortingType).map((item) =>
             <li
               className={cn(`places__option`, {'places__option--active': item === activeSorting})}
               tabIndex="0"

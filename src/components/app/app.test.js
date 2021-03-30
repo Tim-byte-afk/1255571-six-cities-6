@@ -4,7 +4,7 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import * as redux from 'react-redux';
 import configureStore from 'redux-mock-store';
-import {AUTHORIZATION_STATUS, SITIES, SORTING_TYPE} from '../../constants';
+import {AuthorizationStatus, Sities, SortingType} from '../../constants';
 import {NameSpace} from '../../store/root-reducer';
 import App from './app';
 
@@ -18,7 +18,7 @@ describe(`Test routing`, () => {
   it(`Render 'MainScreen' when user navigate to '/' url`, () => {
     const store = mockStore({
       [NameSpace.USER]: {
-        authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {}
       },
       [NameSpace.OFFER]: {
@@ -26,8 +26,8 @@ describe(`Test routing`, () => {
         isDataLoaded: true
       },
       [NameSpace.MAIN]: {
-        activeCity: SITIES.PARIS,
-        activeSorting: SORTING_TYPE.POPULAR
+        activeCity: Sities.PARIS,
+        activeSorting: SortingType.POPULAR
       },
     });
 
@@ -48,7 +48,7 @@ describe(`Test routing`, () => {
   it(`Render 'Login' when user navigate to '/login' url`, () => {
     const store = mockStore({
       [NameSpace.USER]: {
-        authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {}
       },
       [NameSpace.OFFER]: {
@@ -56,8 +56,8 @@ describe(`Test routing`, () => {
         isDataLoaded: true
       },
       [NameSpace.MAIN]: {
-        activeCity: SITIES.PARIS,
-        activeSorting: SORTING_TYPE.POPULAR
+        activeCity: Sities.PARIS,
+        activeSorting: SortingType.POPULAR
       },
     });
 
@@ -79,7 +79,7 @@ describe(`Test routing`, () => {
   it(`Render 'RoomContainer' when user navigate to '/offer/:id' url`, async () => {
     const store = mockStore({
       [NameSpace.USER]: {
-        authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {}
       },
       [NameSpace.OFFER]: {
@@ -94,8 +94,8 @@ describe(`Test routing`, () => {
         isOfferNotFound: false
       },
       [NameSpace.MAIN]: {
-        activeCity: SITIES.PARIS,
-        activeSorting: SORTING_TYPE.POPULAR
+        activeCity: Sities.PARIS,
+        activeSorting: SortingType.POPULAR
       },
     });
 
@@ -120,7 +120,7 @@ describe(`Test routing`, () => {
   it(`Render 'Favorites' when user navigates to '/favorites' url`, async () => {
     const store = mockStore({
       [NameSpace.USER]: {
-        authorizationStatus: AUTHORIZATION_STATUS.AUTH,
+        authorizationStatus: AuthorizationStatus.AUTH,
         userInfo: auth
       },
       [NameSpace.OFFER]: {
@@ -135,8 +135,8 @@ describe(`Test routing`, () => {
         isOfferNotFound: false
       },
       [NameSpace.MAIN]: {
-        activeCity: SITIES.PARIS,
-        activeSorting: SORTING_TYPE.POPULAR
+        activeCity: Sities.PARIS,
+        activeSorting: SortingType.POPULAR
       },
       [NameSpace.FAVORITES]: {
         favorite: offersMocks,
@@ -164,7 +164,7 @@ describe(`Test routing`, () => {
   it(`Render 'NotFoundScreen' when user navigate to non-existent route`, () => {
     const store = mockStore({
       [NameSpace.USER]: {
-        authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {}
       },
       [NameSpace.OFFER]: {
@@ -172,8 +172,8 @@ describe(`Test routing`, () => {
         isDataLoaded: true
       },
       [NameSpace.MAIN]: {
-        activeCity: SITIES.PARIS,
-        activeSorting: SORTING_TYPE.POPULAR
+        activeCity: Sities.PARIS,
+        activeSorting: SortingType.POPULAR
       },
     });
 

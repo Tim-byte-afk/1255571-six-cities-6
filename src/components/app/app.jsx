@@ -7,7 +7,7 @@ import Login from '../login-screen/login-screen';
 import PrivateRoute from '../private-route/private-route';
 import RoomContainer from '../room-container/room-container';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import Favorites from '../favorites-screen/favorites-screen';
+import Favoritescreen from '../favorites-screen/favorites-screen';
 import {AppRoute} from '../../constants.js';
 
 import {fetchOffersList} from '../../store/offer/operations';
@@ -34,7 +34,7 @@ const App = (props) => {
       <Route path={AppRoute.MAIN} exact >
         <MainScreen cardsData={offers} />
       </Route>
-      <PrivateRoute path={AppRoute.FAVORITES} exact render={() => <Favorites /> } />
+      <PrivateRoute path={AppRoute.FAVORITES} exact render={() => <Favoritescreen /> } />
       <Route path={AppRoute.LOGIN} exact >
         <Login />
       </Route>

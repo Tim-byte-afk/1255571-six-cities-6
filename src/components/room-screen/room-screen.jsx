@@ -1,26 +1,26 @@
 import React, {useState} from 'react';
 import Header from '../header/header';
-import ReviewsList from '../room-reviews-list/room-reviews-list';
-import Map from '../map-screen/map-screen';
-import Other from '../room-other/room-other';
+import RoomReviewsList from '../room-reviews-list/room-reviews-list';
+import Map from '../map/map';
+import RoomOther from '../room-other/room-other';
 import {getStarsWidth} from '../../utils';
 import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
-import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
+import {AuthorizationStatus, AppRoute, FavoriteStatus} from '../../constants';
 import {getAuthStatusSelector} from '../../store/user/selectors';
 import {offerPropTypes, reviewPropTypes} from '../../prop-types';
 
 import cn from 'classnames';
 
-const Room = (props) => {
+const RoomScreen = (props) => {
   const {cardData, reviewsData, otherOffers, authorizationStatus, onPostFavorite} = props;
   const [isFavorite, setIsFavorite] = useState(cardData.is_favorite);
   const history = useHistory();
 
   const handleFavoriteClick = () => {
-    if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       history.push(AppRoute.LOGIN);
     } else {
       onPostFavorite(cardData.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
@@ -117,7 +117,7 @@ const Room = (props) => {
                   </p>
                 </div>
               </div>
-              <ReviewsList
+              <RoomReviewsList
                 reviewsData={reviewsData}
                 offerId={cardData.id}
               />
@@ -136,7 +136,7 @@ const Room = (props) => {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {otherOffers.map((element) => (
-                <Other
+                <RoomOther
                   key={`${element.id}_${element.title}`}
                   otherOffer={element}
                 />
@@ -149,7 +149,7 @@ const Room = (props) => {
   );
 };
 
-Room.propTypes = {
+RoomScreen.propTypes = {
   cardData: offerPropTypes,
   reviewsData: PropTypes.arrayOf(reviewPropTypes),
   otherOffers: PropTypes.arrayOf(offerPropTypes),
@@ -167,5 +167,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export {RoomScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen);

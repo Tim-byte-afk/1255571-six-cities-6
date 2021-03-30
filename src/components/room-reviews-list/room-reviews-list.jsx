@@ -3,12 +3,12 @@ import Form from '../root-form/root-form';
 import {connect} from 'react-redux';
 import Review from '../room-review-screen/room-review-screen';
 import PropTypes from 'prop-types';
-import {AUTHORIZATION_STATUS} from '../../constants';
+import {AuthorizationStatus} from '../../constants';
 import {sortingDate} from '../../helpers';
 import {getAuthStatusSelector} from '../../store/user/selectors';
 import {reviewPropTypes} from '../../prop-types';
 
-const ReviewsList = (props) => {
+const RoomReviewsList = (props) => {
   const {reviewsData = [], authorizationStatus, offerId} = props;
 
   let reviews = [];
@@ -28,14 +28,14 @@ const ReviewsList = (props) => {
         ))}
       </ul>
       {
-        authorizationStatus === AUTHORIZATION_STATUS.AUTH && <Form offerId={offerId} />
+        authorizationStatus === AuthorizationStatus.AUTH && <Form offerId={offerId} />
 
       }
     </section>
   );
 };
 
-ReviewsList.propTypes = {
+RoomReviewsList.propTypes = {
   reviewsData: PropTypes.arrayOf(reviewPropTypes),
   authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.number.isRequired
@@ -46,5 +46,5 @@ const mapStateToProps = (state) => ({
 });
 
 
-export {ReviewsList};
-export default connect(mapStateToProps)(ReviewsList);
+export {RoomReviewsList};
+export default connect(mapStateToProps)(RoomReviewsList);

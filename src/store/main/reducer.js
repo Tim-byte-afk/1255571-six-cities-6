@@ -1,9 +1,9 @@
-import {SITIES, SORTING_TYPE} from '../../constants';
+import {Sities, SortingType} from '../../constants';
 import {ActionType} from './actions';
 
 const initialState = {
-  activeCity: SITIES.PARIS,
-  activeSorting: SORTING_TYPE.POPULAR,
+  activeCity: Sities.PARIS,
+  activeSorting: SortingType.POPULAR,
 };
 
 const reducer = (state = initialState, action) => {

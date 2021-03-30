@@ -5,19 +5,19 @@ import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
-import {AUTHORIZATION_STATUS, AppRoute, FavoriteStatus} from '../../constants';
+import {AuthorizationStatus, AppRoute, FavoriteStatus} from '../../constants';
 import {getAuthStatusSelector} from '../../store/user/selectors';
 import {offerPropTypes} from '../../prop-types';
 
 import cn from 'classnames';
 
-const Other = (props) => {
+const RoomOther = (props) => {
   const {otherOffer, authorizationStatus, onPostFavorite} = props;
   const [isFavorite, setIsFavorite] = useState(otherOffer.is_favorite);
   const history = useHistory();
 
   const handleFavoriteClick = () => {
-    if (authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH) {
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       history.push(AppRoute.LOGIN);
     } else {
       onPostFavorite(otherOffer.id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD);
@@ -71,7 +71,7 @@ const Other = (props) => {
   );
 };
 
-Other.propTypes = {
+RoomOther.propTypes = {
   otherOffer: offerPropTypes,
   authorizationStatus: PropTypes.string,
   onPostFavorite: PropTypes.func.isRequired,
@@ -87,5 +87,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {Other};
-export default connect(mapStateToProps, mapDispatchToProps)(Other);
+export {RoomOther};
+export default connect(mapStateToProps, mapDispatchToProps)(RoomOther);

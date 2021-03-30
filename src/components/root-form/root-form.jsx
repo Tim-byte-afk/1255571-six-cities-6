@@ -5,8 +5,8 @@ import {postComments} from '../../store/offer/operations';
 import {getCommentStatusPendingSelector} from '../../store/offer/selectors';
 import {Statuses} from '../../constants';
 
-const Form = (props) => {
-  const {offerId, postData, commentSendingStatus} = props;
+const RootForm = (props) => {
+  const {offerId, onFetchComment, commentSendingStatus} = props;
   const [rating, setRating] = useState(4);
   const [review, setReview] = useState(``);
 
@@ -20,15 +20,15 @@ const Form = (props) => {
     setReview(reviewText);
   };
 
-  const handleSubmit = (evt) => {
+  const handleSubmitFetchComment = (evt) => {
     evt.preventDefault();
-    postData(offerId, review, rating);
+    onFetchComment(offerId, review, rating);
     setRating(4);
     setReview(``);
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmitFetchComment}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={handleRating} />
@@ -78,9 +78,9 @@ const Form = (props) => {
   );
 };
 
-Form.propTypes = {
+RootForm.propTypes = {
   offerId: PropTypes.number.isRequired,
-  postData: PropTypes.func.isRequired,
+  onFetchComment: PropTypes.func.isRequired,
   commentSendingStatus: PropTypes.string.isRequired,
 };
 
@@ -89,11 +89,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  postData(id, comment, rating) {
+  onFetchComment(id, comment, rating) {
     dispatch(postComments(id, comment, rating));
   }
 });
 
-export {Form};
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export {RootForm};
+export default connect(mapStateToProps, mapDispatchToProps)(RootForm);
 

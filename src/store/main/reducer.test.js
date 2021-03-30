@@ -1,41 +1,41 @@
 import {reducer} from './reducer';
 import {ActionType} from './actions';
-import {SITIES, SORTING_TYPE} from '../../constants';
+import {Sities, SortingType} from '../../constants';
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, ActionType.CHANGE_CITY))
       .toEqual({
-        activeCity: SITIES.PARIS,
-        activeSorting: SORTING_TYPE.POPULAR
+        activeCity: Sities.PARIS,
+        activeSorting: SortingType.POPULAR
       });
   });
 
   it(`Reducer should add city offer`, () => {
     const state = {
-      activeCity: SITIES.PARIS,
+      activeCity: Sities.PARIS,
     };
 
     const addSityAction = {
       type: ActionType.CHANGE_CITY,
-      payload: SITIES.BRUSSELS,
+      payload: Sities.BRUSSELS,
     };
 
     expect(reducer(state, addSityAction))
-      .toEqual({activeCity: SITIES.BRUSSELS});
+      .toEqual({activeCity: Sities.BRUSSELS});
   });
 
   it(`Reducer should add sorting type offer`, () => {
     const state = {
-      activeSorting: SORTING_TYPE.POPULAR,
+      activeSorting: SortingType.POPULAR,
     };
 
     const addFavoriteAction = {
       type: ActionType.CHANGE_SORT_TYPE,
-      payload: SORTING_TYPE.RATED_FIRST,
+      payload: SortingType.RATED_FIRST,
     };
 
     expect(reducer(state, addFavoriteAction))
-      .toEqual({activeSorting: SORTING_TYPE.RATED_FIRST});
+      .toEqual({activeSorting: SortingType.RATED_FIRST});
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import {getStarsWidth} from '../../utils';
 import {reviewPropTypes} from '../../prop-types';
 
-const Review = (props) => {
+const RoomReviewScreen = (props) => {
   const {reviewData} = props;
 
   const newDate = new Date(reviewData.date);
@@ -36,8 +36,8 @@ const Review = (props) => {
   );
 };
 
-Review.propTypes = {
+RoomReviewScreen.propTypes = {
   reviewData: reviewPropTypes,
 };
 
-export default Review;
+export default RoomReviewScreen;

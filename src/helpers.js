@@ -1,11 +1,11 @@
-import {SORTING_TYPE} from './constants';
+import {SortingType} from './constants';
 
 export const sorting = (data, activeSorting) => {
-  if (activeSorting === SORTING_TYPE.PRICE_HIGH_LOW) {
+  if (activeSorting === SortingType.PRICE_HIGH_LOW) {
     return data.sort((a, b) => (b.price - a.price));
-  } else if (activeSorting === SORTING_TYPE.PRICE_LOW_HIGH) {
+  } else if (activeSorting === SortingType.PRICE_LOW_HIGH) {
     return data.sort((a, b) => (a.price - b.price));
-  } else if (activeSorting === SORTING_TYPE.RATED_FIRST) {
+  } else if (activeSorting === SortingType.RATED_FIRST) {
     return data.sort((a, b) => (b.rating - a.rating));
   }
 
@@ -13,7 +13,7 @@ export const sorting = (data, activeSorting) => {
 };
 
 export const sortingDate = (data) => {
-  return data.sort((a, b) => {
+  return data.slice().sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
 };

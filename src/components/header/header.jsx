@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {AUTHORIZATION_STATUS} from '../../constants';
+import {AuthorizationStatus} from '../../constants';
 import {logout} from '../../store/user/operations';
 import {AppRoute} from '../../constants';
 import {getAuthStatusSelector, getUserInfoSelector} from '../../store/user/selectors';
@@ -11,7 +11,7 @@ import {userInfoPropTypes} from '../../prop-types';
 const Header = ({authorizationStatus, userInfo, onLogoutClick}) => {
   let isAuthorized = false;
   let user = `Sign In`;
-  if (authorizationStatus === AUTHORIZATION_STATUS.AUTH) {
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
     user = userInfo.email;
     isAuthorized = true;
   }
