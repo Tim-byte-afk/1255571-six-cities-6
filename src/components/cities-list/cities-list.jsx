@@ -19,7 +19,7 @@ const CitiesList = (props) => {
   return (
     <ul className="locations__list tabs__list">
       {Object.values(Sities).map((city) => (
-        <li className="locations__item" key={city}>
+        <li className="locations__item" key={`${city}_${new Date()}`}>
           <a className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} href="#" onClick={handleChangeCityClick}>
             <span>{city}</span>
           </a>

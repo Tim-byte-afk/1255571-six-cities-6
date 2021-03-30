@@ -31,7 +31,7 @@ const Sorting = (props) => {
             <li
               className={cn(`places__option`, {'places__option--active': item === activeSorting})}
               tabIndex="0"
-              key={item}
+              key={`${item}_${Date.now()}`}
               onClick={() => {
                 onChangeSorting(item);
                 handleFilterListClose();

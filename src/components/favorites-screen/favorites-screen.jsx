@@ -46,7 +46,7 @@ const FavoriteScreen = (props) => {
                   <h1 className="favorites__title">Saved listing</h1>
                   <ul className="favorites__list">
                     {Object.entries(favoritesByCity).map(([city, savedOffers]) => (
-                      <li className="favorites__locations-items" key={city}>
+                      <li className="favorites__locations-items" key={`${city}_${new Date()}`}>
                         <div className="favorites__locations locations locations--current">
                           <div className="locations__item">
                             <Link className="locations__item-link" to={AppRoute.MAIN} onClick={() => handleChangeCityClick(city)}>

@@ -39,7 +39,7 @@ const RoomScreen = (props) => {
               {
                 cardData.images.length > 0 && (
                   cardData.images.slice(0, 6).map((element, index) => (
-                    <div className="property__image-wrapper" key={index + Date.now()}>
+                    <div className="property__image-wrapper" key={`${index}_${Date.now()}`}>
                       <img className="property__image" src={element} alt="Photo studio" />
                     </div>
                   ))
@@ -94,7 +94,7 @@ const RoomScreen = (props) => {
                 <ul className="property__inside-list">
                   {
                     cardData.goods.map((element, index) => (
-                      <li className="property__inside-item" key={index + Date.now()}>
+                      <li className="property__inside-item" key={`${index}_${Date.now()}`}>
                         {element}
                       </li>
                     ))

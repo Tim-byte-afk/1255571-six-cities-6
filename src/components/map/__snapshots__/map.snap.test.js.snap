@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`'LoadingScreen component' should render correctly 1`] = `
+exports[`'Map component' should render correctly 1`] = `
 <div>
   <div
     class="leaflet-container leaflet-grab leaflet-touch-drag"
