@@ -4,7 +4,7 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import * as redux from 'react-redux';
 import configureStore from 'redux-mock-store';
-import {AuthorizationStatus, Sities, SortingType} from '../../constants';
+import {AuthorizationStatus, Cities, SortingType} from '../../constants';
 import {NameSpace} from '../../store/root-reducer';
 import App from './app';
 
@@ -26,7 +26,7 @@ describe(`Test routing`, () => {
         isDataLoaded: true
       },
       [NameSpace.MAIN]: {
-        activeCity: Sities.PARIS,
+        activeCity: Cities.PARIS,
         activeSorting: SortingType.POPULAR
       },
     });
@@ -56,7 +56,7 @@ describe(`Test routing`, () => {
         isDataLoaded: true
       },
       [NameSpace.MAIN]: {
-        activeCity: Sities.PARIS,
+        activeCity: Cities.PARIS,
         activeSorting: SortingType.POPULAR
       },
     });
@@ -94,7 +94,7 @@ describe(`Test routing`, () => {
         isOfferNotFound: false
       },
       [NameSpace.MAIN]: {
-        activeCity: Sities.PARIS,
+        activeCity: Cities.PARIS,
         activeSorting: SortingType.POPULAR
       },
     });
@@ -135,7 +135,7 @@ describe(`Test routing`, () => {
         isOfferNotFound: false
       },
       [NameSpace.MAIN]: {
-        activeCity: Sities.PARIS,
+        activeCity: Cities.PARIS,
         activeSorting: SortingType.POPULAR
       },
       [NameSpace.FAVORITES]: {
@@ -172,7 +172,7 @@ describe(`Test routing`, () => {
         isDataLoaded: true
       },
       [NameSpace.MAIN]: {
-        activeCity: Sities.PARIS,
+        activeCity: Cities.PARIS,
         activeSorting: SortingType.POPULAR
       },
     });

@@ -5,6 +5,7 @@ import {getStarsWidth} from '../../utils';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
+import {getFavotitesSelector} from '../../store/favorites/selectors';
 import {AuthorizationStatus, AppRoute, FavoriteStatus} from '../../constants';
 
 import {getAuthStatusSelector} from '../../store/user/selectors';
@@ -14,8 +15,9 @@ import cn from 'classnames';
 
 const CardScreen = (props) => {
 
-  const {cardData, onMouseEnter, onMouseLeave, onPostFavorite, authorizationStatus} = props;
-  const [isFavorite, setIsFavorite] = useState(cardData.is_favorite);
+  const {cardData, favorites = [], onMouseEnter, onMouseLeave, onPostFavorite, authorizationStatus} = props;
+
+  const [isFavorite, setIsFavorite] = useState(favorites.some((element) => element.id === cardData.id));
   const history = useHistory();
 
   const handleMouseOn = (id) => () => onMouseEnter(id);
@@ -75,6 +77,7 @@ const CardScreen = (props) => {
 
 CardScreen.propTypes = {
   cardData: offerPropTypes,
+  favorites: PropTypes.arrayOf(offerPropTypes),
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
@@ -83,6 +86,7 @@ CardScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthStatusSelector(state),
+  favorites: getFavotitesSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

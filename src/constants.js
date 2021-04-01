@@ -1,9 +1,9 @@
-export const Sities = {
+export const Cities = {
   PARIS: `Paris`,
   COLOGNE: `Cologne`,
   BRUSSELS: `Brussels`,
   AMSTERDAM: `Amsterdam`,
-  HUMBURG: `Hamburg`,
+  HAMBURG: `Hamburg`,
   DUSSELDORF: `Dusseldorf`
 };
 

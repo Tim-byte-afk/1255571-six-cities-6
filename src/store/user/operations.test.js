@@ -79,7 +79,7 @@ describe(`Async operation work correctly`, () => {
         });
 
         expect(dispatch).toHaveBeenNthCalledWith(3, {
-          type: `middlewares/redirectToRoute`,
+          type: `middleware/redirectToRoute`,
           payload: AppRoute.MAIN,
         });
       });

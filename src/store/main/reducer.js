@@ -1,8 +1,8 @@
-import {Sities, SortingType} from '../../constants';
+import {Cities, SortingType} from '../../constants';
 import {ActionType} from './actions';
 
 const initialState = {
-  activeCity: Sities.PARIS,
+  activeCity: Cities.PARIS,
   activeSorting: SortingType.POPULAR,
 };
 

@@ -8,6 +8,7 @@ import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
+import RoomScreenPhotos from '../room-screen-photos/room-screen-photos';
 import {AuthorizationStatus, AppRoute, FavoriteStatus} from '../../constants';
 import {getAuthStatusSelector} from '../../store/user/selectors';
 import {offerPropTypes, reviewPropTypes} from '../../prop-types';
@@ -43,13 +44,7 @@ const RoomScreen = (props) => {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                cardData.images.length > 0 && (
-                  cardData.images.slice(0, 6).map((element, index) => (
-                    <div className="property__image-wrapper" key={`${index}_${Date.now()}`}>
-                      <img className="property__image" src={element} alt="Photo studio" />
-                    </div>
-                  ))
-                )
+                cardData.images.length > 0 && <RoomScreenPhotos cardData={cardData} />
               }
             </div>
           </div>

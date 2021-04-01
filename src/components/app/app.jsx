@@ -7,10 +7,11 @@ import Login from '../login-screen/login-screen';
 import PrivateRoute from '../private-route/private-route';
 import RoomContainer from '../room-container/room-container';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import Favoritescreen from '../favorites-screen/favorites-screen';
+import FavoriteScreen from '../favorites-screen/favorites-screen';
 import {AppRoute} from '../../constants.js';
 
 import {fetchOffersList} from '../../store/offer/operations';
+import {fetchFavorite} from '../../store/favorites/operations';
 import {checkAuth} from '../../store/user/operations';
 import LoadingScreen from '../loading-screen/loading-screen';
 
@@ -34,7 +35,7 @@ const App = (props) => {
       <Route path={AppRoute.MAIN} exact >
         <MainScreen cardsData={offers} />
       </Route>
-      <PrivateRoute path={AppRoute.FAVORITES} exact render={() => <Favoritescreen /> } />
+      <PrivateRoute path={AppRoute.FAVORITES} exact render={() => <FavoriteScreen /> } />
       <Route path={AppRoute.LOGIN} exact >
         <Login />
       </Route>
@@ -57,6 +58,7 @@ const mapDispatchToProps = (dispatch) => ({
   onFetchFavorite() {
     dispatch(fetchOffersList());
     dispatch(checkAuth());
+    dispatch(fetchFavorite());
   }
 });
 

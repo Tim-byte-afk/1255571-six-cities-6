@@ -40,9 +40,7 @@ export const statusCommentSending = createAction(ActionType.STATUS_COMMENT_SENDI
   };
 });
 
-export const reset = createAction(ActionType.RESET_DATA, () => {
-  return {};
-});
+export const reset = createAction(ActionType.RESET_DATA);
 
 export const offerNotFound = createAction(ActionType.OFFER_NOT_FOUND, (data) => {
   return {

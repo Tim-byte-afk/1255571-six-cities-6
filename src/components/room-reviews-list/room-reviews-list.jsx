@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Review from '../room-review-screen/room-review-screen';
 import PropTypes from 'prop-types';
 import {AuthorizationStatus} from '../../constants';
-import {sortingDate} from '../../helpers';
+import {sortingDate} from '../../utils';
 import {getAuthStatusSelector} from '../../store/user/selectors';
 import {reviewPropTypes} from '../../prop-types';
 
@@ -13,14 +13,14 @@ const RoomReviewsList = (props) => {
 
   let reviews = [];
   if (reviewsData.length > 0) {
-    reviews = sortingDate(reviewsData);
+    reviews = sortingDate(reviewsData).slice(0, 10);
   }
 
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
-        {reviews.slice(0, 10).map((element) => (
+        {reviews.map((element) => (
           <Review
             reviewData={element}
             key={`${element.id}_${element.date}`}

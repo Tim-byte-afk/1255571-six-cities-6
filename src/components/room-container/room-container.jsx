@@ -50,13 +50,13 @@ const RoomContainer = (props) => {
     return <LoadingScreen />;
   }
 
-  if (offer) {
+  if (!offer) {
     return (
-      <RoomScreen cardData={offer} reviewsData={comments} otherOffers={offersNearby} />
+      <NotFoundScreen />
     );
   }
 
-  return <NotFoundScreen />;
+  return <RoomScreen cardData={offer} reviewsData={comments} otherOffers={offersNearby} />;
 };
 
 RoomContainer.propTypes = {
