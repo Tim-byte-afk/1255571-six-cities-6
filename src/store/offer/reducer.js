@@ -3,7 +3,7 @@ import {Statuses} from '../../constants';
 
 const initialState = {
   offers: [],
-  offer: {},
+  offer: null,
   offersNearby: [],
   comments: [],
   isDataLoaded: false,

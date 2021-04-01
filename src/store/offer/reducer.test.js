@@ -8,7 +8,7 @@ describe(`Offers reducers work correctly`, () => {
     expect(reducer(undefined, ActionType.LOAD_OFFERS))
       .toEqual({
         offers: [],
-        offer: {},
+        offer: null,
         offersNearby: [],
         comments: [],
         isDataLoaded: false,
@@ -22,7 +22,7 @@ describe(`Offers reducers work correctly`, () => {
 
   it(`Reducer should add offer`, () => {
     const state = {
-      offer: {},
+      offer: null,
       isOfferLoaded: false
     };
 

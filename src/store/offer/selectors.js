@@ -3,7 +3,7 @@ import {NameSpace} from '../root-reducer';
 import {Statuses} from '../../constants';
 
 export const getOffersSelector = (state) => get(state, `${NameSpace.OFFER}.offers`, []);
-export const getOfferSelector = (state) => get(state, `${NameSpace.OFFER}.offer`, {});
+export const getOfferSelector = (state) => get(state, `${NameSpace.OFFER}.offer`, null);
 export const getOffersNearbySelector = (state) => get(state, `${NameSpace.OFFER}.offersNearby`, []);
 export const getCommentsSelector = (state) => get(state, `${NameSpace.OFFER}.comments`, []);
 export const getStatusLoadOfferSelector = (state) => get(state, `${NameSpace.OFFER}.isOfferLoaded`, false);
