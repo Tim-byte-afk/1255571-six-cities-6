@@ -8,6 +8,7 @@ import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {postFavorite} from '../../store/favorites/operations';
+import {getFavotitesSelector} from '../../store/favorites/selectors';
 import RoomScreenPhotos from '../room-screen-photos/room-screen-photos';
 import {AuthorizationStatus, AppRoute, FavoriteStatus} from '../../constants';
 import {getAuthStatusSelector} from '../../store/user/selectors';
@@ -18,12 +19,13 @@ import cn from 'classnames';
 const RoomScreen = (props) => {
   const {
     cardData,
+    favorites,
     reviewsData,
     otherOffers,
     authorizationStatus,
     onPostFavorite
   } = props;
-  const [isFavorite, setIsFavorite] = useState(cardData.is_favorite);
+  const [isFavorite, setIsFavorite] = useState(favorites.some((element) => element.id === cardData.id));
   const history = useHistory();
 
   const handleFavoriteClick = () => {
@@ -152,6 +154,7 @@ const RoomScreen = (props) => {
 
 RoomScreen.propTypes = {
   cardData: offerPropTypes,
+  favorites: PropTypes.array,
   reviewsData: PropTypes.arrayOf(reviewPropTypes),
   otherOffers: PropTypes.arrayOf(offerPropTypes),
   authorizationStatus: PropTypes.string,
@@ -160,6 +163,7 @@ RoomScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthStatusSelector(state),
+  favorites: getFavotitesSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

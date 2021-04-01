@@ -60,7 +60,7 @@ const RoomContainer = (props) => {
 };
 
 RoomContainer.propTypes = {
-  offer: PropTypes.object.isRequired,
+  offer: PropTypes.oneOfType([PropTypes.oneOf([null]).isRequired, PropTypes.object.isRequired]),
   offersNearby: PropTypes.arrayOf(offerPropTypes),
   comments: PropTypes.arrayOf(reviewPropTypes),
   isOfferLoaded: PropTypes.bool.isRequired,
